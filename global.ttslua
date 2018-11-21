@@ -7,9 +7,6 @@ end
 function update ()
 end
 
-rozluz={}
-    rozluz
-
 menu={}
     menu["0ff99d"]=function()
                     z_worka("1. Rozbitkowie")
@@ -43,7 +40,7 @@ print("wykonane")
     if type(tab_guid) == "number" then
         tasuj(deck)
         --pick up card
-        for i, tab_guid do
+        for i=1, tab_guid do
                 poz_start.takeObject({
                     --move to pozycja
                     position=pozycja, smooth=true, flip=flip
@@ -61,13 +58,12 @@ print("wykonane")
     end
 end
 function tasuj(tab_guid)
-    local guids = getObjectFromGUID(tab_guid)
-    local time = 0.25
-    for i,guid in pairs(guids) do
-        Wait.time(function()
+    if type(tab_guid)=="string" then
+        tab_guid={tab_guid}
+    end
+    for i,guid in pairs(tab_guid) do
                         obj = getObjectFromGUID(guid)
                         obj.shuffle()
-                    end, i*time)
     end
     return true
 end
