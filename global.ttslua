@@ -1,0 +1,72 @@
+#include const
+
+function onload()
+    --[[ print('Onload!') --]]
+
+    --tasuj()
+
+end
+
+--[[ The Update function. This is called once per frame. --]]
+function update ()
+    --[[ print('Update loop!') --]]
+end
+
+function tasuj()
+    local guids = getObjectFromGUID(cons.game.guid.tasuj)
+    local time = 0.25
+    for i,guid in pairs(guids) do
+        Wait.time(function()
+        obj = getObjectFromGUID(guid)
+        obj.shuffle()
+        end, i*time)
+    end
+    return true
+end
+
+function z_worka(nazwa)
+local bag=getObjectFromGUID("2d0d57")
+local objectsInBag = bag.getObjects()
+
+for i,v in pairs(objectsInBag) do
+  print(v.name)
+end
+
+for i, object in pairs(objectsInBag) do
+--Look for an entry that has the name of "Square"
+    if object.name == nazwa then
+
+        --print(object.name)
+        --If it is found, then we need to use takeObject on it
+        --We get the position first, which I am going to use the bag pos
+
+        local pos = {
+            x = -31.15,
+            y = 2.01,
+            z = 12.097
+            }
+
+    --object.setPositionSmooth(pos)
+        --Now we use takeObject. I will be giving it parameters
+        --Giving it GUID has it pull this specific object out of the bag
+        --[[Giving it a callback lets it run code on the object after it
+            has been spawned int othe world. If we simply tried to run
+            code as we're using takeObject to get it, it doesn't exist
+            in the world yet (hasn't spawned) so we can't apply changes.
+
+            We will be establishing both a callback and a callback_owner.
+            Callback is the NAME of the function, owner is where it is.]]
+        bag.takeObject({
+            position=pos, guid=object.guid, smooth=true, rotation={0,180,0}
+        })
+
+        --Set foundSquare to true, to indicate we did find the square.
+        --foundSquare = true
+        --We only want it to find 1 Square per button press
+        --Break will end the for loop here, preventing multiple returns
+
+
+        break
+    end
+end
+end
