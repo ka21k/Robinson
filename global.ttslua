@@ -10,31 +10,44 @@ end
 menu={}
     menu["0ff99d"]=function()
         --z_worka("1. Rozbitkowie")
-        z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[1]},cons.game.positions.poz_scenario,false)
-        z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-        z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-        z_decka(cons.game.guid.deck.kar_dod_pom,5,cons.game.positions.poz_kar_pom_wolne,false)
-        z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
-        z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
-        z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-        piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)
-        piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)                 
-
+        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        Wait.time(function()--rozdawanie kart
+            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[1]},cons.game.positions.poz_scenario,false)
+            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
+            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
+            z_decka(cons.game.guid.deck.kar_dod_pom,5,cons.game.positions.poz_kar_pom_wolne,false)
+            z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
+            z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
+            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
+            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+        end,1)
+        Wait.time(function()
+            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce)--znacznik rundy
+            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
+        end,2)
     end
     menu["f706a8"]=function() z_worka("2. Przeklęta Wyspa")end
     menu["b013db"]=function() z_worka("3. Jenny w opałach")end
     menu["b3a1db"]=function() z_worka("4. Wyspa Ognia")end
-    menu["89bd91"]=function() z_worka("5. Wyspa Kanibali")                      end
+    menu["89bd91"]=function() z_worka("5. Wyspa Kanibali")end
     menu["ed67a2"]=function() z_worka("6. Rodzina Robinsonów")end
     menu["a8aeb3"]=function() z_worka("7. King Kong")end
     menu["07a89f"]=function() z_worka("8. Przyrodnik")end
     menu["d4c0c0"]=function() z_worka("9. Łowcy")end
     menu["fe284e"]=function() z_worka("10. Śladami Doktora Livingstone'a")end
+
+function delete_menu(menu)
+    for i=1, #menu do
+        print(#menu)
+        destroyObject(getObjectFromGUID(menu[i]))
+    end
+end
 function onObjectPickUp( player_color,  picked_up_object)
     --print(picked_up_object.guid)
     if(menu[picked_up_object.guid]) then
         menu[picked_up_object.guid]()
-
+        delete_menu(cons.game.guid.menu)
     end
 end
 function z_decka(deck,tab_guid,tab_pozycja,flip)
@@ -49,7 +62,7 @@ function z_decka(deck,tab_guid,tab_pozycja,flip)
     end
 
     if type(tab_guid) == "number" then
-        tasuj(deck)
+        --tasuj(deck)
 
         --pick up card
         for i=1, tab_guid do
@@ -87,9 +100,8 @@ function tasuj(tab_guid)
     return true
 end
 function piony(pion_id,pozycja)
+
     local obj=getObjectFromGUID(pion_id)
-    obj.takeObject({
-        --move to pozycja
-        position=pozycja, smooth=true
-    })
+    obj.setPositionSmooth(pozycja, false, false)
+    --print(pion_id)
 end
