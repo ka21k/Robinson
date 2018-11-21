@@ -1,4 +1,0 @@
-function onPickUp(player_color)
-    --print(self.getName())
-Global.call("z_worka","1. Rozbitkowie")
-end
