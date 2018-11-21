@@ -1,29 +1,68 @@
 #include const
 
 function onload()
+        --print("dupa")
 end
 
 function update ()
 end
 
-menu={
-    "0ff99d"=function() z_worka("1. Rozbitkowie")end,
-    "f706a8"=function() z_worka("2. Przeklęta Wyspa")end,
-    "b013db"=function() z_worka("3. Jenny w opałach")end,
-    "b3a1db"=function() z_worka("4. Wyspa Ognia")end,
-    "89bd91"=function() z_worka("5. Wyspa Kanibali")end,
-    "ed67a2"=function() z_worka("6. Rodzina Robinsonów")end,
-    "a8aeb3"=function() z_worka("7. King Kong")end,
-    "07a89f"=function() z_worka("8. Przyrodnik")end,
-    "d4c0c0"=function() z_worka("9. Łowcy")end,
-    "fe284e"=function() z_worka("10. Śladami Doktora Livingstone'a")end
-}
-function onObjectPickUp( player_color,  picked_up_object)
-    if(menu[picked_up_object.guid]) then menu[picked_up_object.guid]() end
-end
+rozluz={}
+    rozluz
 
-function tasuj()
-    local guids = getObjectFromGUID(cons.game.guid.tasuj)
+menu={}
+    menu["0ff99d"]=function()
+                    z_worka("1. Rozbitkowie")
+                    z_wraku()
+                    z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
+                    z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
+                    z_decka(cons.game.guid.deck.kar_dod_pom,5,cons.game.positions.poz_kar_pom_wolne,false)
+                    z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
+                    z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
+    end
+    menu["f706a8"]=function() z_worka("2. Przeklęta Wyspa")end
+    menu["b013db"]=function() z_worka("3. Jenny w opałach")end
+    menu["b3a1db"]=function() z_worka("4. Wyspa Ognia")end
+    menu["89bd91"]=function() z_worka("5. Wyspa Kanibali")end
+    menu["ed67a2"]=function() z_worka("6. Rodzina Robinsonów")end
+    menu["a8aeb3"]=function() z_worka("7. King Kong")end
+    menu["07a89f"]=function() z_worka("8. Przyrodnik")end
+    menu["d4c0c0"]=function() z_worka("9. Łowcy")end
+    menu["fe284e"]=function() z_worka("10. Śladami Doktora Livingstone'a")end
+function onObjectPickUp( player_color,  picked_up_object)
+    --print(picked_up_object.guid)
+    if(menu[picked_up_object.guid]) then
+        menu[picked_up_object.guid]()
+
+    end
+end
+function z_decka(deck,tab_guid,tab_pozycja,flip)
+    --if tab_guid = 1 then pick up random card from the top of deck
+    local poz_start=deck
+    if tab_guid == 1 then
+        tasuj(deck)
+        --pick up card
+        for i, object in pairs(tab_guid) do
+                poz_start.takeObject({
+                    --move to pozycja
+                    position=pozycja, guid=object.guid, smooth=true, rotation={0,0,0}
+                })
+        end
+
+    else
+        --pick up specyfic cards and move to pozycja
+        for i, object in pairs(tab_guid) do
+            if object.guid == nazwa then
+                poz_start.takeObject({
+                    position=pozycja, guid=object.guid, smooth=true, rotation={0,0,0}
+                })
+                --break
+            end
+        end
+    end
+end
+function tasuj(tab_guid)
+    local guids = getObjectFromGUID(tab_guid)
     local time = 0.25
     for i,guid in pairs(guids) do
         Wait.time(function()
