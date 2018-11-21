@@ -89,25 +89,25 @@ cons={
                 "d6fb62"
             },
             przed_scen={
-                "a26281",--pułapka
-                "941673",--fosa
-                "46e747",--swiety dzwon
-                "2b2d1a",--Wzmocnienie Broni
-                "81ce6e",--twierdza
-                "9221a8",--usypiacz
-                "16c06d",--szklarnia
-                "783241",--krzyz 2
-                "7dbe7d",--klatka
-                "1dda68",--tratwa
-                "97d95c",--szalupa
-                "ba7319",--siekiera
-                "25c309",--piroga
-                "d28296",--ogrod
-                "f63db9",--maszt
-                "52cb8a",--lodka
-                "501378",--krzyz 1
-                "d02b2d",--drabinka sznurowa
-                "d2560f"--balista
+                "a26281",--1. pułapka
+                "941673",--2. fosa
+                "46e747",--3. swiety dzwon
+                "2b2d1a",--4. Wzmocnienie Broni
+                "81ce6e",--5. twierdza
+                "9221a8",--6. usypiacz
+                "16c06d",--7. szklarnia
+                "783241",--8. krzyz 2
+                "7dbe7d",--9. klatka
+                "1dda68",--10. tratwa
+                "97d95c",--11. szalupa
+                "ba7319",--12. siekiera
+                "25c309",--13. piroga
+                "d28296",--14. ogrod
+                "f63db9",--15. maszt
+                "52cb8a",--16. lodka
+                "501378",--17. krzyz 1
+                "d02b2d",--18. drabinka sznurowa
+                "d2560f"--19. balista
 
             },
             znaczniki={
