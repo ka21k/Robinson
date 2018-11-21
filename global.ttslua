@@ -9,20 +9,22 @@ end
 
 menu={}
     menu["0ff99d"]=function()
-                    --z_worka("1. Rozbitkowie")
-                    z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[1]},cons.game.positions.poz_scenario,false)
-                    z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-                    z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-                    z_decka(cons.game.guid.deck.kar_dod_pom,5,cons.game.positions.poz_kar_pom_wolne,false)
-                    z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
-                    z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
-                    z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
+        --z_worka("1. Rozbitkowie")
+        z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[1]},cons.game.positions.poz_scenario,false)
+        z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
+        z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
+        z_decka(cons.game.guid.deck.kar_dod_pom,5,cons.game.positions.poz_kar_pom_wolne,false)
+        z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
+        z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
+        z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
+        piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)
+        piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)                 
 
     end
     menu["f706a8"]=function() z_worka("2. Przeklęta Wyspa")end
     menu["b013db"]=function() z_worka("3. Jenny w opałach")end
     menu["b3a1db"]=function() z_worka("4. Wyspa Ognia")end
-    menu["89bd91"]=function() z_worka("5. Wyspa Kanibali")end
+    menu["89bd91"]=function() z_worka("5. Wyspa Kanibali")                      end
     menu["ed67a2"]=function() z_worka("6. Rodzina Robinsonów")end
     menu["a8aeb3"]=function() z_worka("7. King Kong")end
     menu["07a89f"]=function() z_worka("8. Przyrodnik")end
@@ -84,22 +86,10 @@ function tasuj(tab_guid)
     end
     return true
 end
-
-function z_worka(nazwa)
-    local bag=getObjectFromGUID(cons.game.guid.deck.scenariusze)
-    local objectsInBag = bag.getObjects()
-
-    for i, object in pairs(objectsInBag) do
-        if object.name == nazwa then
-            local pos = {
-                x = -31.15,
-                y = 2.01,
-                z = 12.097
-                }
-            bag.takeObject({
-                position=pos, guid=object.guid, smooth=true
-            })
-            break
-        end
-    end
+function piony(pion_id,pozycja)
+    local obj=getObjectFromGUID(pion_id)
+    obj.takeObject({
+        --move to pozycja
+        position=pozycja, smooth=true
+    })
 end

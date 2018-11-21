@@ -83,6 +83,16 @@ cons={
             },
             znaczniki={
                 kar_4graczy="97226c",
+                ciesla1="",
+                ciesla2="",
+                kucharz1="",
+                kucharz2="",
+                zolnierz1="",
+                zolnierz2="",
+                odkrywca1="",
+                odkrywca2="",
+                pietaszek="",
+                pies=""
             },
             deck={
                 scenariusze="2d0d57",
