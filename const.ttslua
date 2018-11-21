@@ -88,6 +88,28 @@ cons={
                 "ea2ec9",
                 "d6fb62"
             },
+            przed_scen={
+                "a26281",--pułapka
+                "941673",--fosa
+                "46e747",--swiety dzwon
+                "2b2d1a",--Wzmocnienie Broni
+                "81ce6e",--twierdza
+                "9221a8",--usypiacz
+                "16c06d",--szklarnia
+                "783241",--krzyz 2
+                "7dbe7d",--klatka
+                "1dda68",--tratwa
+                "97d95c",--szalupa
+                "ba7319",--siekiera
+                "25c309",--piroga
+                "d28296",--ogrod
+                "f63db9",--maszt
+                "52cb8a",--lodka
+                "501378",--krzyz 1
+                "d02b2d",--drabinka sznurowa
+                "d2560f"--balista
+
+            },
             znaczniki={
                 kar_4graczy="97226c",
                 runda="cd2fab",
@@ -105,6 +127,7 @@ cons={
             },
             deck={
                 scenariusze="2d0d57",
+                kar_scenariuszy="fd1bc5",
                 wyspa="6e9dcd",
                 odkrycia="a10387",
                 kar_prz_start="5ae747",

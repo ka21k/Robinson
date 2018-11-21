@@ -1,5 +1,5 @@
 #include const
-
+puste_miejsca = 9
 function onload()
         --print("dupa")
 end
@@ -38,9 +38,9 @@ menu={}
     menu["fe284e"]=function() z_worka("10. Śladami Doktora Livingstone'a")end
 
 function delete_menu(menu)
-    for i=1, #menu do
-        print(#menu)
+    for i=1, tablelength(menu) do
         destroyObject(getObjectFromGUID(menu[i]))
+        print("Deleted:"..menu[i])
     end
 end
 function onObjectPickUp( player_color,  picked_up_object)
@@ -104,4 +104,9 @@ function piony(pion_id,pozycja)
     local obj=getObjectFromGUID(pion_id)
     obj.setPositionSmooth(pozycja, false, false)
     --print(pion_id)
+end
+function tablelength(T)
+  local count = 0
+  for _ in pairs(T) do count = count + 1 end
+  return count
 end
