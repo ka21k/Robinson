@@ -13,12 +13,12 @@ rozluz={}
 menu={}
     menu["0ff99d"]=function()
                     z_worka("1. Rozbitkowie")
-                    z_wraku()
                     z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
                     z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
                     z_decka(cons.game.guid.deck.kar_dod_pom,5,cons.game.positions.poz_kar_pom_wolne,false)
                     z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
                     z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
+                    z_wyspy(cons.game.guid.deck.wyspa,1,cons.game.positions.poz_kafli.plaza,true)
     end
     menu["f706a8"]=function() z_worka("2. Przeklęta Wyspa")end
     menu["b013db"]=function() z_worka("3. Jenny w opałach")end
@@ -38,26 +38,25 @@ function onObjectPickUp( player_color,  picked_up_object)
 end
 function z_decka(deck,tab_guid,tab_pozycja,flip)
     --if tab_guid = 1 then pick up random card from the top of deck
-    local poz_start=deck
-    if tab_guid == 1 then
+    local poz_start=getObjectFromGUID(deck)
+print("wykonane")
+    if type(tab_guid) == "number" then
         tasuj(deck)
         --pick up card
-        for i, object in pairs(tab_guid) do
+        for i, tab_guid do
                 poz_start.takeObject({
                     --move to pozycja
-                    position=pozycja, guid=object.guid, smooth=true, rotation={0,0,0}
+                    position=pozycja, smooth=true, flip=flip
                 })
         end
 
-    else
+    elseif type(tab_guid) == "table" then
         --pick up specyfic cards and move to pozycja
         for i, object in pairs(tab_guid) do
-            if object.guid == nazwa then
+
                 poz_start.takeObject({
-                    position=pozycja, guid=object.guid, smooth=true, rotation={0,0,0}
+                    position=pozycja, guid=object, smooth=true, flip=flip
                 })
-                --break
-            end
         end
     end
 end
