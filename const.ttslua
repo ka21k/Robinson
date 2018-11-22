@@ -14,6 +14,7 @@ cons={
             poz_palisada={24.182,2.5,20.087},--palisada poziom 1
             poz_broni1={28.813,2.5,20.496},--pozycja broni poziom 1
             poz_morale1={-0.372,2.5,20.264},--pozycja morale poziom 1
+            poz_bestii_polowanie={-4.404,2.5,-1.694},--pozycja znacznika przy polowaniu
             poz_spe_odkrycia={
                 {-30.815,2.5,-2.854},--57437c
                 {-28.119,2.5,-2.854},--4754e4
@@ -31,7 +32,7 @@ cons={
                 {-32.581,2.5,21.188},--scenariusz 8, klatka + szklarnia, zagroda + 4 inne przedmioty, 12 rund, znacznik zycia
                 {-31.806,2.5,21.917},--scenariusz 9, schronienie + palisada 1 + bron 1, znacznik +1 do sily bestii na polowaniu, +6 kart wydarzen, 10 rund, wzmocnienie broni + twierdza
                                     --wylozyc karty wydarzen kolo planszy(w stosie), wylozyc bestie kolo planszy (tygrys, puma, kozica, gepard, aligator, jaguar),
-                                    --proca + luk + dzida + tarcza + mur, start na plazy,f
+                                    --proca + luk + dzida + tarcza + mur, start na plazy
                 {-33.247,2.5,22.788}--scenariusz 10, morale na 1, - kafelek 2, wyjac zetony specjalne odkryc, wor + kosz + latarnia (zakryte),
                                     --ogien + lina + noz (odkryte), bron na 1,
             },
@@ -191,7 +192,7 @@ cons={
                 bron="809bda",--znacznik poziomu broni
                 dach="64c830",--znacznik poziomu dachu
                 palisada="987b92",--znacznik poziomu palisady
-                zycie_jenny="8145ba",--znacznik zycia Jenny
+                zycie="8145ba",--znacznik zycia Jenny
                 ciesla1="",
                 ciesla2="",
                 kucharz1="",
@@ -219,14 +220,15 @@ cons={
                 kar_pro="be501e",
                 kar_eks="509fca",
                 zna_bialy="11ea52",
-                zna_niebieski="748467"
+                zna_niebieski="748467",
+                zna_bestii="60fb9e"
             },
             bestie_9={
-                "7fe243",--tygrys
-                "2fe9e4",--puma
+                "a93d6a",--tygrys
+                "86e475",--puma
                 "b28cc2",--kozica
-                "776164",--gepard
-                "04d032",--aligator
+                "469a81",--gepard
+                "4bd147",--aligator
                 "b1f7e1"--jaguar
             },
             tasuj={
