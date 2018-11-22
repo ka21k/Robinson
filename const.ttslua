@@ -1,8 +1,9 @@
 cons={
     game={
         positions={
-            poz_scenario={-31.15,3,12.097},
-            poz_wydarzenie={-10.338,3,19.920},
+            poz_scenario={-31.15,1,12.097},
+            poz_wydarzenie={-10.338,2.5,19.920},
+            poz_kar_prz_dod={-0.485,2.5,29.631},
             poz_kar_bud={2.390,3,-5.557},
             poz_kar_pro={8.545,3,-5.653},
             poz_kar_eks={14.518,3,-5.8},
@@ -15,6 +16,7 @@ cons={
             poz_broni1={28.813,2.5,20.496},--pozycja broni poziom 1
             poz_morale1={-0.372,2.5,20.264},--pozycja morale poziom 1
             poz_bestii_polowanie={-4.404,2.5,-1.694},--pozycja znacznika przy polowaniu
+            poz_dod_kar_wyd_9={-8.959,2.5,-13.843},
             poz_spe_odkrycia={
                 {-30.815,2.5,-2.854},--57437c
                 {-28.119,2.5,-2.854},--4754e4
@@ -40,13 +42,21 @@ cons={
                 {-5.128,2.5,-13.663},
                 {-1.407,2.5,-13.663}
             },
+            poz_kart_wyd_9={
+                {-23.3,2.5,-4.56},
+                {-26.8,2.5,-4.56},
+                {-30.3,2.5,-4.56},
+                {-33.8,2.5,-4.56},
+                {-37.3,2.5,-4.56},
+                {-40.8,2.5,-4.56}
+            },
             poz_bestii_9={
-                {-37.9,2.5,-8.5},--pozycje bestii dla scenariusza 9
-                {-34.9,2.5,-8.5},
-                {-31.9,2.5,-8.5},
-                {-28.9,2.5,-8.5},
-                {-25.9,2.5,-8.5},
-                {-22.9,2.5,-8.5}
+                {-22.9,2.5,-9.9},--pozycje bestii dla scenariusza 9
+                {-25.9,2.5,-9.9},
+                {-28.9,2.5,-9.9},
+                {-31.9,2.5,-9.9},
+                {-34.9,2.5,-9.9},
+                {-37.9,2.5,-9.9}
             },
             poz_zna_prz_sta={
                 {-5.654,2.5,-15.279},
@@ -61,17 +71,15 @@ cons={
                 kanibale={3.591,3,12.956}
             },
             poz_kar_pom_start={
-                mapa={9.399,3,13.198},
-                cegly={13.102,3,13.206},
-                tama={17.004,3,13.269},
-                ogien={20.762,3,13.271},
-                noz={24.367,3,13.273},
-                naczynia={28.384,3,13.213},
-                lek={9.5,3,8.443},
-                lina={13.19,3,8.446},
-                lopata={16.957,3,8.439}
-            },
-            poz_kar_pom_wolne={
+                {9.399,3,13.198},
+                {13.102,3,13.206},
+                {17.004,3,13.269},
+                {20.762,3,13.271},
+                {24.367,3,13.273},
+                {28.384,3,13.213},
+                {9.5,3,8.443},
+                {13.19,3,8.446},
+                {16.957,3,8.439},
                 {20.641,3,8.386},
                 {24.477,3,8.412},
                 {28.309,3,8.419},
@@ -81,21 +89,21 @@ cons={
                 {20.773,3,3.466},
                 {24.394,3,3.434},
                 {28.313,3,3.44}
-            }
+            },
         },
         guid={
             menu={
-                "d03c53",
-                "0ff99d",
-                "f706a8",
-                "b013db",
-                "b3a1db",
-                "89bd91",
-                "ed67a2",
-                "a8aeb3",
-                "07a89f",
-                "d4c0c0",
-                "fe284e"
+                "81e803",
+                "05a789",
+                "6c484a",
+                "5ce8f2",
+                "525bec",
+                "125393",
+                "8dc2fd",
+                "4b3a6e",
+                "ea58a6",
+                "6cb212",
+                "3071ad"
             },
             scenario={
                 "595aca",--1. rozbitkowie
@@ -186,6 +194,12 @@ cons={
                 "c39557"--8. mlotek
             },
             znaczniki={
+                zetony_spec={
+                    "57437c",
+                    "4754e4",
+                    "2d03b3",
+                    "6da49e"
+                },
                 kar_4graczy="97226c",--karta dla 4 graczy
                 runda="cd2fab",--znacznik rundy
                 oboz="56cd68",--znacznik obozu
@@ -193,6 +207,7 @@ cons={
                 dach="64c830",--znacznik poziomu dachu
                 palisada="987b92",--znacznik poziomu palisady
                 zycie="8145ba",--znacznik zycia Jenny
+                morale="195da5",
                 ciesla1="",
                 ciesla2="",
                 kucharz1="",
@@ -209,11 +224,12 @@ cons={
                 kar_scenariuszy="fd1bc5",
                 wyspa="6e9dcd",
                 odkrycia="a10387",
+                kar_pom_start="2df2fd",
                 kar_prz_start="5ae747",
                 kar_dod_pom="442458",
                 kar_pyt="3d808d",
                 kar_ksi="e57b68",
-                kar_bestie="5952ff",
+                kar_bestie="7ae043",
                 kar_wraku="742b30",
                 kar_tajemnic="b93ec4",
                 kar_bud="b51179",
@@ -232,7 +248,7 @@ cons={
                 "b1f7e1"--jaguar
             },
             tasuj={
-                "5952ff","742b30","5ae747","442458","b93ec4","3d808d"
+                "7ae043","742b30","5ae747","442458","b93ec4","3d808d"
                 ,"e57b68","6e9dcd","a10387","b51179","be501e","509fca"
             }
         }
