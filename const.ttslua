@@ -8,10 +8,44 @@ cons={
             poz_kar_eks={14.518,3,-5.8},
             poz_kar_4graczy={20.126,3,-3.644},
             poz_akcja={-8.500,3,-4.069},
-            poz_rundy_sce={-38.253,2.5,21.396},
+            poz_jenny={-23.106,2.5,21.259},--scenariusz 3, zycie jenny (scenariusz 3)
+            poz_przyrodnika={-39.917,2.5,-0.677},--pozycja zycia przyrodnika (scenariusz 8)
+            poz_dach={19.997,2.5,19.646},--dach poziom 1
+            poz_palisada={24.182,2.5,20.087},--palisada poziom 1
+            poz_broni1={28.813,2.5,20.496},--pozycja broni poziom 1
+            poz_morale1={-0.372,2.5,20.264},--pozycja morale poziom 1
+            poz_spe_odkrycia={
+                {-30.815,2.5,-2.854},--57437c
+                {-28.119,2.5,-2.854},--4754e4
+                {-25.515,2.5,-2.854},--2d03b3
+                {-22.815,2.5,-2.854}--6da49e
+            },
+            poz_rundy_sce={
+                {-38.253,2.5,21.396},--scenariusz 1, masz + siekiera, 12 rund, start na plazy
+                {-32.544,2.5,22.55},--scenariusz 2, krzyz + swiety dzwon, 10 rund, start na plazy
+                {-33.545,2.5,22.175},--scenariusz 3, tratwa + lodka, 8 rund, bez barometru, start na plazy
+                {-26.523,2.5,24.054},--scenariusz 4, wytworzone lopata + noz, bron na 1, drabinka + szalupa, start na kafelku 10, kafelek 8 odwrucony
+                {-29.192,2.5,16.031},--scenariusz 5, rum + fajka + tyton, balista + piroga, 9 rund, start na plazy, kafelek 4 (kanibale) zakryty
+                {-30.055,2.5,19.273},--scenariusz 6, +9 kart pomyslow, fosa + ogrod, 12 rund, start na plazy
+                {-39.666,2.5,21.845},--scenariusz 7, oboz na schronienie, pulapka + usypiacz, 10 rund, start na plazy
+                {-32.581,2.5,21.188},--scenariusz 8, klatka + szklarnia, zagroda + 4 inne przedmioty, 12 rund, znacznik zycia
+                {-31.806,2.5,21.917},--scenariusz 9, schronienie + palisada 1 + bron 1, znacznik +1 do sily bestii na polowaniu, +6 kart wydarzen, 10 rund, wzmocnienie broni + twierdza
+                                    --wylozyc karty wydarzen kolo planszy(w stosie), wylozyc bestie kolo planszy (tygrys, puma, kozica, gepard, aligator, jaguar),
+                                    --proca + luk + dzida + tarcza + mur, start na plazy,f
+                {-33.247,2.5,22.788}--scenariusz 10, morale na 1, - kafelek 2, wyjac zetony specjalne odkryc, wor + kosz + latarnia (zakryte),
+                                    --ogien + lina + noz (odkryte), bron na 1,
+            },
             poz_prz_sta_dol={
-                {-5.128,3,-13.663},
-                {-1.407,3,-13.663}
+                {-5.128,2.5,-13.663},
+                {-1.407,2.5,-13.663}
+            },
+            poz_bestii_9={
+                {-37.9,2.5,-8.5},--pozycje bestii dla scenariusza 9
+                {-34.9,2.5,-8.5},
+                {-31.9,2.5,-8.5},
+                {-28.9,2.5,-8.5},
+                {-25.9,2.5,-8.5},
+                {-22.9,2.5,-8.5}
             },
             poz_zna_prz_sta={
                 {-5.654,2.5,-15.279},
@@ -63,17 +97,17 @@ cons={
                 "fe284e"
             },
             scenario={
-                "595aca",
-                "93802e",
-                "c77856",
-                "effcdb",
-                "f95eff",
-                "bc03b0",
-                "8662f2",
-                "e4ef71",
-                "f6dbb0",
-                "452443",
-                "dd5fde"
+                "595aca",--1. rozbitkowie
+                "93802e",--2. przekleta wyspa
+                "c77856",--3. jenny w potrzebie
+                "effcdb",--4. wyspa ognia
+                "f95eff",--5. wyspa kanibali
+                "bc03b0",--6. rodzina robinsonow
+                "8662f2",--7. king kong
+                "e4ef71",--8. przyrodnik
+                "f6dbb0",--9. lowcy
+                "452443",--10. sladami doktora livingstone'a
+                "dd5fde"--11. livingstone'a artykul
             },
             kafle={
                 "8f043a",
@@ -87,6 +121,17 @@ cons={
                 "c83199",
                 "ea2ec9",
                 "d6fb62"
+            },
+            przed_stale={
+                "7bd396",--1. mapa
+                "656bdb",--2. cegly
+                "f71f0e",--3. tama
+                "d8da57",--4. ogien
+                "186933",--5. noz
+                "26e4a5",--6. naczynia
+                "5f69a1",--7. lek
+                "e0e217",--8. lina
+                "df3256"--9. lopata
             },
             przed_scen={
                 "a26281",--1. pułapka
@@ -110,10 +155,23 @@ cons={
                 "d2560f"--19. balista
 
             },
+            przed_start={
+                "18d285",--1. biblia
+                "878d03",--2. suchary
+                "5aec1e",--3. pusta butelka
+                "47216f",--4. flaszka rumu
+                "c4e578",--5. barometr
+                "bdce37",--6. pistolet
+                "f5533b",--7. fajka i tyton
+                "c39557"--8. mlotek
+            },
             znaczniki={
-                kar_4graczy="97226c",
-                runda="cd2fab",
-                oboz="56cd68",
+                kar_4graczy="97226c",--karta dla 4 graczy
+                runda="cd2fab",--znacznik rundy
+                oboz="56cd68",--znacznik obozu
+                bron="809bda",--znacznik poziomu broni
+                dach="64c830",--znacznik poziomu dachu
+                palisada="987b92",--znacznik poziomu palisady
                 ciesla1="",
                 ciesla2="",
                 kucharz1="",
@@ -142,6 +200,14 @@ cons={
                 kar_eks="509fca",
                 zna_bialy="11ea52",
                 zna_niebieski="748467"
+            },
+            bestie_9={
+                "7fe243",--tygrys
+                "2fe9e4",--puma
+                "b28cc2",--kozica
+                "776164",--gepard
+                "04d032",--aligator
+                "b1f7e1"--jaguar
             },
             tasuj={
                 "5952ff","742b30","5ae747","442458","b93ec4","3d808d"
