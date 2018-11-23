@@ -2,6 +2,17 @@
 
 function onload()
         --print("dupa")
+        --rozkladanie kart kart graczy
+        local gracze = getSeatedPlayers()
+
+        for i, obj in pairs(gracze) do
+            Player[obj].lookAt({
+                position = cons.poz.poz_scenario,
+                pitch    = 65,
+                yaw      = 0,
+                distance = 20,
+            })
+        end
 end
 
 function update ()
@@ -21,286 +32,296 @@ menu={}
     menu["05a789"]=function()        --1. Rozbitkowie
         index_wolnych = 1
         liczba_rund = 12
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[1]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[1]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[12],cons.game.guid.przed_scen[15]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[12],cons.guid.przed_scen[15]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[1])--znacznik rundy
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[1])--znacznik rundy
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
         end,2)
         lastShuffle()
     end
     menu["6c484a"]=function()        --2. przekleta wyspa
         index_wolnych = 1
         liczba_rund = 10
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[2]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[2]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[3],cons.game.guid.przed_scen[17]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[3],cons.guid.przed_scen[17]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[2])--znacznik rundy
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[2])--znacznik rundy
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
         end,2)
         lastShuffle()
     end
     menu["5ce8f2"]=function()       --3. jenny w opalach
         index_wolnych = 1
         liczba_rund = 8
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[3]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[3]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[10],cons.game.guid.przed_scen[16]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[10],cons.guid.przed_scen[16]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,4,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,4,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,4,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,4,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[3])--znacznik rundy
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            piony(cons.game.guid.znaczniki.zycie,cons.game.positions.poz_jenny)--znacznik zycia Jenny
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[3])--znacznik rundy
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            copy({getObjectFromGUID(cons.guid.znaczniki.zycie)})
+            paste({
+                position     = cons.poz.poz_jenny,-- Vector  [x=0, y=3, z=0],
+                snap_to_grid = false-- boolean [false],
+            })
+            --piony(cons.guid.znaczniki.zycie,cons.poz.poz_jenny)--znacznik zycia Jenny
         end,2)
         lastShuffle()
     end
     menu["525bec"]=function()       --4. wyspa ognia
         index_wolnych = 1
         liczba_rund = 10
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[4]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[4]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[11],cons.game.guid.przed_scen[18]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[11],cons.guid.przed_scen[18]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.wulkan,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[10]},cons.game.positions.poz_kafli.wulkan_start,true)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.wulkan,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[10]},cons.poz.poz_kafli.wulkan_start,true)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[4])--znacznik rundy
-            piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.wulkan_start)--znacznik obozu
-            odwracaj({cons.game.guid.przed_stale[5],cons.game.guid.przed_stale[9]},true)
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[4])--znacznik rundy
+            piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.wulkan_start)--znacznik obozu
+            odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]},true)
         end,2)
         lastShuffle()
     end
     menu["125393"]=function()       --5. wyspa kanibali
         index_wolnych = 1
         liczba_rund = 9
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[5]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,{cons.game.guid.przed_start[4],cons.game.guid.przed_start[7]},cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[5]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,{cons.guid.przed_start[4],cons.guid.przed_start[7]},cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[13],cons.game.guid.przed_scen[19]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[13],cons.guid.przed_scen[19]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,4,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[4]},cons.game.positions.poz_kafli.kanibale,false)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,4,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[4]},cons.poz.poz_kafli.kanibale,false)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[5])--znacznik rundy
-            --piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            --odwracaj({cons.game.guid.przed_stale[5],cons.game.guid.przed_stale[9]})
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[5])--znacznik rundy
+            --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            --odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]})
         end,2)
         lastShuffle()
     end
     menu["8dc2fd"]=function()       --6. rodzina robinsonow
         index_wolnych = 1
         liczba_rund = 12
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[6]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[6]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,9,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,9,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[2],cons.game.guid.przed_scen[14]},slice(cons.game.positions.poz_bestii_9,5),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[14],cons.guid.przed_scen[2]},cons.poz.poz_kart_wyd_9,false)
             --index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-            --z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[4]},cons.game.positions.poz_kafli.kanibale,false)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
+            --z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[4]},cons.poz.poz_kafli.kanibale,false)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[6])--znacznik rundy
-            --piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            --odwracaj({cons.game.guid.przed_stale[5],cons.game.guid.przed_stale[9]})
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[6])--znacznik rundy
+            --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            --odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]})
         end,2)
         lastShuffle()
     end
     menu["4b3a6e"]=function()       --7. king kong
         index_wolnych = 1
         liczba_rund = 10
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[7]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[7]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[1],cons.game.guid.przed_scen[6]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[1],cons.guid.przed_scen[6]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             --index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
-            --z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[4]},cons.game.positions.poz_kafli.kanibale,false)
-            --piony(cons.game.guid.znaczniki.kar_4graczy,cons.game.positions.poz_kar_4graczy)--karta dla 4 graczy
+            z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
+            --z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[4]},cons.poz.poz_kafli.kanibale,false)
+            --piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[7])--znacznik rundy
-            --piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            odwracaj(cons.game.guid.znaczniki.oboz,180)
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[7])--znacznik rundy
+            --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            odwracaj(cons.guid.znaczniki.oboz,180)
         end,2)
         lastShuffle()
     end
     menu["ea58a6"]=function()       --8. przyrodnik
         index_wolnych = 1
         liczba_rund = 12
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[8]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[8]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,{cons.game.guid.przed_pomysl[12]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[12]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 1
-            z_decka(cons.game.guid.deck.kar_dod_pom,4,slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,4,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 4
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[7],cons.game.guid.przed_scen[9]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[7],cons.guid.przed_scen[9]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             --index_wolnych = index_wolnych + 2
-            z_decka(cons.game.guid.deck.kar_pyt,6,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,6,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)
+            z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[8])--znacznik rundy
-            --piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.zycie,cons.game.positions.poz_przyrodnika)--znacznik zycia przyrodnika
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            --odwracaj(cons.game.guid.znaczniki.oboz,180)
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[8])--znacznik rundy
+            --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            copy({getObjectFromGUID(cons.guid.znaczniki.zycie)})
+            paste({
+                position     = cons.poz.poz_przyrodnika,-- Vector  [x=0, y=3, z=0],
+                snap_to_grid = false-- boolean [false],
+            })
+            --piony(cons.guid.znaczniki.zycie,cons.poz.poz_przyrodnika)--znacznik zycia przyrodnika
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            --odwracaj(cons.guid.znaczniki.oboz,180)
         end,2)
         lastShuffle()
     end
     menu["6cb212"]=function()       --9. lowcy
         index_wolnych = 1
         liczba_rund = 10
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[9]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,9,cons.game.positions.poz_kar_pom_start,false)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[9]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.game.guid.deck.kar_dod_pom,5,slice(cons.game.positions.poz_kar_pom_wolne,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[4],cons.game.guid.przed_scen[5]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
-            z_decka(cons.game.guid.deck.kar_pyt,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_pyt,3,cons.game.positions.poz_kart_wyd_9,false)--dodatkowe karty wydarzen
-            z_decka(cons.game.guid.deck.kar_ksi,3,slice(cons.game.positions.poz_kart_wyd_9,4),false)--dodatkowe karty wydarzen
-            z_decka(cons.game.guid.deck.kar_bestie,slice(cons.game.guid.bestie_9,6-liczbaBestii9()+1),cons.game.positions.poz_bestii_9,false)--dodatkowe bestie do polowania pod scenariuszem
-            z_decka(cons.game.guid.deck.zna_bestii,1,cons.game.positions.poz_bestii_polowanie,false)--znacznik sily bestii
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)--kafel startowy
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[4],cons.guid.przed_scen[5]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_pyt,3,cons.poz.poz_kart_wyd_9,false)--dodatkowe karty wydarzen
+            z_decka(cons.guid.deck.kar_ksi,3,slice(cons.poz.poz_kart_wyd_9,4),false)--dodatkowe karty wydarzen
+            z_decka(cons.guid.deck.kar_bestie,slice(cons.guid.bestie_9,6-liczbaBestii9()+1),cons.poz.poz_bestii_9,false)--dodatkowe bestie do polowania pod scenariuszem
+            z_decka(cons.guid.deck.zna_bestii,1,cons.poz.poz_bestii_polowanie,false)--znacznik sily bestii
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)--kafel startowy
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--niebieskie znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[9])--znacznik rundy
-            piony(cons.game.guid.znaczniki.palisada,cons.game.positions.poz_palisada)--znacznik palisady
-            piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            odwracaj(cons.game.guid.znaczniki.oboz,180)--odwraca znacznik obozu na schronienie
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--niebieskie znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[9])--znacznik rundy
+            piony(cons.guid.znaczniki.palisada,cons.poz.poz_palisada)--znacznik palisady
+            piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            odwracaj(cons.guid.znaczniki.oboz,180)--odwraca znacznik obozu na schronienie
         end,2)
         lastShuffle()
     end
     menu["3071ad"]=function()       --10. sladami doktora livingstone'a
         index_wolnych = 1
         liczba_rund = 10
-        tasuj(cons.game.guid.tasuj)--tasowanie przed rozdaniem
+        tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
-            z_decka(cons.game.guid.deck.scenariusze,{cons.game.guid.scenario[10]},cons.game.positions.poz_scenario,false)
-            z_decka(cons.game.guid.deck.kar_wraku,1,cons.game.positions.poz_akcja,true)
-            z_decka(cons.game.guid.deck.kar_prz_start,2,cons.game.positions.poz_prz_sta_dol,true)
-            z_decka(cons.game.guid.deck.kar_pom_start,{cons.game.guid.przed_stale[4],cons.game.guid.przed_stale[5],cons.game.guid.przed_stale[8]},cons.game.positions.poz_kar_pom_start,true)
+            z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[10]},cons.poz.poz_scenario,false)
+            z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
+            z_decka(cons.guid.deck.kar_pom_start,{cons.guid.przed_stale[4],cons.guid.przed_stale[5],cons.guid.przed_stale[8]},cons.poz.poz_kar_pom_start,true)
             index_wolnych = index_wolnych + 3
-            z_decka(cons.game.guid.deck.kar_dod_pom,{cons.game.guid.przed_pomysl[4],cons.game.guid.przed_pomysl[7],cons.game.guid.przed_pomysl[13]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[4],cons.guid.przed_pomysl[7],cons.guid.przed_pomysl[13]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 3
-            z_decka(cons.game.guid.deck.kar_scenariuszy,{cons.game.guid.przed_scen[8]},slice(cons.game.positions.poz_kar_pom_start,index_wolnych),false)
-            z_decka(cons.game.guid.deck.kar_pyt,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.kar_ksi,5,cons.game.positions.poz_wydarzenie,false)
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[8]},cons.game.positions.poz_kafli.plaza,true)--kafel startowy
-            z_decka(cons.game.guid.deck.wyspa,{cons.game.guid.kafle[2]},cons.game.positions.poz_kafli.plaza,false)--kafel do skasowania
-            z_decka(cons.game.guid.deck.odkrycia,cons.game.guid.znaczniki.zetony_spec,cons.game.positions.poz_spe_odkrycia,false)--zetony specjalnych odkryc
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[8]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8]},cons.poz.poz_kafli.plaza,true)--kafel startowy
+            z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[2]},cons.poz.poz_kafli.plaza,false)--kafel do skasowania
+            z_decka(cons.guid.deck.odkrycia,cons.guid.znaczniki.zetony_spec,cons.poz.poz_spe_odkrycia,false)--zetony specjalnych odkryc
         end,1)
         Wait.time(function()
-            z_decka(cons.game.guid.deck.zna_niebieski,4,cons.game.positions.poz_zna_prz_sta,false)--niebieskie znaczniki do przedmiotow
-            piony(cons.game.guid.znaczniki.runda,cons.game.positions.poz_rundy_sce[10])--znacznik rundy
-            piony(cons.game.guid.znaczniki.morale,cons.game.positions.poz_morale1)--znacznik morale
-            --piony(cons.game.guid.znaczniki.palisada,cons.game.positions.poz_palisada)--znacznik palisady
-            piony(cons.game.guid.znaczniki.bron,cons.game.positions.poz_broni1)--znacznik broni
-            piony(cons.game.guid.znaczniki.oboz,cons.game.positions.poz_kafli.plaza)--znacznik obozu
-            --odwracaj(cons.game.guid.znaczniki.oboz,180)--odwraca znacznik obozu na schronienie
+            z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--niebieskie znaczniki do przedmiotow
+            piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[10])--znacznik rundy
+            piony(cons.guid.znaczniki.morale,cons.poz.poz_morale1)--znacznik morale
+            --piony(cons.guid.znaczniki.palisada,cons.poz.poz_palisada)--znacznik palisady
+            piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
+            piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
+            --odwracaj(cons.guid.znaczniki.oboz,180)--odwraca znacznik obozu na schronienie
             destroyObject(getObjectFromGUID("9fa5ee"))
         end,3)
         lastShuffle()
@@ -335,10 +356,38 @@ function odwracaj(tab_karty,flip)
 end
 
 function onObjectPickUp( player_color,  picked_up_object)
-    --print(picked_up_object.guid)
+
     if(menu[picked_up_object.guid]) then
+        ile_graczy = #getSeatedPlayers()
         menu[picked_up_object.guid]()
-        delete_menu(cons.game.guid.menu)
+        delete_menu(cons.guid.menu)
+        if #(Player.getPlayers())==4 then
+            piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
+        else
+            destroyObject(getObjectFromGUID(cons.guid.znaczniki.kar_4graczy))
+        end
+
+
+        local gracze = getSeatedPlayers()
+        for _, obj in pairs(gracze) do
+            Player[obj].lookAt({
+                position = {0,0,-5},
+                pitch    = 75,
+                yaw      = 0,
+                distance = 65,
+            })
+        end
+        if ile_graczy<3 then
+            odciac=1
+        else
+            odciac=0
+        end
+        --for i=1, ile_graczy do
+            --z_decka(cons.guid.deck.kar_postaci,cons.guid.postacie,cons.poz.poz_graczy,false)
+            --z_decka(cons.guid.deck.kar_postaci,{cons.guid.postacie[odciac+math.random(4-odciac)]},{cons.poz.poz_graczy[i]},false)--biale znaczniki do przedmiotow
+        --end
+        print("losowa liczba: = "..math.random(4-odciac))
+        broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
     end
 end
 
@@ -429,7 +478,7 @@ function lastShuffle()
         end,
         function()
 
-            hitList = findDeck(cons.game.positions.poz_wydarzenie)
+            hitList = findDeck(cons.poz.poz_wydarzenie)
 
             if #hitList == 0 then
                 return false
