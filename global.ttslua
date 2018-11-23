@@ -382,24 +382,64 @@ function onObjectPickUp( player_color,  picked_up_object)
         else
             odciac=0
         end
+
+        for i,col in pairs(gracze) do
+            local offset = 2
+            local hand = Player[col].getPlayerHand()
+            local target =
+                { hand.pos_x + hand.trigger_forward_x * offset
+                , 2.5
+                , hand.pos_z + hand.trigger_forward_z * offset
+                }
+            local rotacja =
+                    {hand.rot_x
+                    , hand.rot_y--make object look out from hand
+                    , hand.rot_z }
+            z_decka(cons.guid.deck.kar_postaci,1,target,rotacja)
+        end
+        --sendHome(getObjectFromGUID("21acbd"),gracze[1])
+        --sendHome(getObjectFromGUID(cons.guid.postacie[1]),gracze[1])
+        --print(gracze[1])
         --for i=1, ile_graczy do
             --z_decka(cons.guid.deck.kar_postaci,cons.guid.postacie,cons.poz.poz_graczy,false)
             --z_decka(cons.guid.deck.kar_postaci,{cons.guid.postacie[odciac+math.random(4-odciac)]},{cons.poz.poz_graczy[i]},false)--biale znaczniki do przedmiotow
         --end
-        print("losowa liczba: = "..math.random(4-odciac))
+        --print("losowa liczba: = "..math.random(4-odciac))
         broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
     end
+end
+
+function sendHome(obj, col)
+    local offset = 2
+    local hand = Player[col].getPlayerHand()
+    local target =
+        { hand.pos_x + hand.trigger_forward_x * offset
+        , 2.5
+        , hand.pos_z + hand.trigger_forward_z * offset
+        }
+print(hand.trigger_forward_x)
+    obj.setPositionSmooth(target)
+    obj.setRotationSmooth(
+        {hand.rot_x
+        , hand.rot_y --make object look out from hand
+        , hand.rot_z }
+    )
 end
 
 function z_decka(deck,tab_guid,tab_pozycja,flip)
     --if tab_guid = 1 then pick up random card from the top of deck
     local poz_start=getObjectFromGUID(deck)
+    if type(flip) == "table" then
+        rot = flip
+        flip = false
+    end
     if poz_start.tag == "Bag" then
         if flip then
             rot = {180,0,0}
         else
             rot = nil
         end
+
     end
 
     if type(tab_guid) == "number" then
