@@ -1,17 +1,20 @@
 #include const
 
 function onload()
-        --print("dupa")
-        --rozkladanie kart kart graczy
+
+    --ustawienie kamery na menu dla gracza hosta
         local gracze = getSeatedPlayers()
 
         for i, obj in pairs(gracze) do
-            Player[obj].lookAt({
-                position = cons.poz.poz_scenario,
-                pitch    = 65,
-                yaw      = 0,
-                distance = 20,
-            })
+            if Player[obj].host then
+                Player[obj].lookAt({
+                    position = cons.poz.poz_scenario,
+                    pitch    = 65,
+                    yaw      = 0,
+                    distance = 20,
+                })
+                break
+            end
         end
 end
 
@@ -357,32 +360,29 @@ end
 
 function onObjectPickUp( player_color,  picked_up_object)
 
+--akcja wykonuje sie podczas wyboru scenariusza z menu
     if(menu[picked_up_object.guid]) then
-        ile_graczy = #getSeatedPlayers()
+
         menu[picked_up_object.guid]()
         delete_menu(cons.guid.menu)
+
+        ile_graczy = #getSeatedPlayers()
+        local gracze = getSeatedPlayers()
+
+--wykladanie karty dla 4 graczy
         if #(Player.getPlayers())==4 then
-            piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)--karta dla 4 graczy
+            piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)
         else
             destroyObject(getObjectFromGUID(cons.guid.znaczniki.kar_4graczy))
         end
 
-
-        local gracze = getSeatedPlayers()
-        for _, obj in pairs(gracze) do
-            Player[obj].lookAt({
-                position = {0,0,-5},
-                pitch    = 75,
-                yaw      = 0,
-                distance = 65,
-            })
-        end
         if ile_graczy<3 then
             odciac=1
         else
             odciac=0
         end
 
+--wykladanie kart postaci wszystkim graczom
         for i,col in pairs(gracze) do
             local offset = 2
             local hand = Player[col].getPlayerHand()
@@ -393,18 +393,38 @@ function onObjectPickUp( player_color,  picked_up_object)
                 }
             local rotacja =
                     {hand.rot_x
-                    , hand.rot_y--make object look out from hand
-                    , hand.rot_z }
-            z_decka(cons.guid.deck.kar_postaci,1,target,rotacja)
+                    , hand.rot_y+180--make object look out from hand
+                    , hand.rot_z
+                    }
+            local obj = z_decka(cons.guid.deck.kar_postaci,slice({cons.guid.postacie[math.random(3-odciac)+1]},1),target,rotacja)
+            -- print(type(obj.guid))
+            -- print(cons.poz.offset_zycia[obj.guid])
+            -- print(type(cons.poz.offset_zycia[obj.guid]))
+
+            Wait.time(function()
+            getObjectFromGUID(cons.guid.znaczniki.zycie).clone({
+                position = {
+                     obj.getPosition().x - cons.poz.offset_zycia[obj.guid]
+                    , 2.5
+                    , obj.getPosition().z - 3.65
+                    },
+                    snap_to_grid = false
+                }).setRotation(rotacja)
+                print(obj.getTransformForward().x)
+                print(obj.getTransformRight().z)
+            end,2)
+            --piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
         end
-        --sendHome(getObjectFromGUID("21acbd"),gracze[1])
-        --sendHome(getObjectFromGUID(cons.guid.postacie[1]),gracze[1])
-        --print(gracze[1])
-        --for i=1, ile_graczy do
-            --z_decka(cons.guid.deck.kar_postaci,cons.guid.postacie,cons.poz.poz_graczy,false)
-            --z_decka(cons.guid.deck.kar_postaci,{cons.guid.postacie[odciac+math.random(4-odciac)]},{cons.poz.poz_graczy[i]},false)--biale znaczniki do przedmiotow
-        --end
-        --print("losowa liczba: = "..math.random(4-odciac))
+
+--ustawianie kamer na srodek stolu dla wszystkich graczy
+        for _, obj in pairs(gracze) do
+            Player[obj].lookAt({
+                position = {0,0,-5},
+                pitch    = 75,
+                yaw      = 0,
+                distance = 65,
+            })
+        end
         broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
     end
 end
@@ -417,7 +437,7 @@ function sendHome(obj, col)
         , 2.5
         , hand.pos_z + hand.trigger_forward_z * offset
         }
-print(hand.trigger_forward_x)
+--print(hand.trigger_forward_x)
     obj.setPositionSmooth(target)
     obj.setRotationSmooth(
         {hand.rot_x
@@ -428,16 +448,18 @@ end
 
 function z_decka(deck,tab_guid,tab_pozycja,flip)
     --if tab_guid = 1 then pick up random card from the top of deck
-    local poz_start=getObjectFromGUID(deck)
+    local poz_start = getObjectFromGUID(deck)
+    local rot = nil
+    local obj = nil
     if type(flip) == "table" then
+        --print("flip jest Tablicą")
         rot = flip
         flip = false
     end
     if poz_start.tag == "Bag" then
         if flip then
+            --print("flip jest True")
             rot = {180,0,0}
-        else
-            rot = nil
         end
 
     end
@@ -446,17 +468,18 @@ function z_decka(deck,tab_guid,tab_pozycja,flip)
         --pick up card
         for i=1, tab_guid do
             if type(tab_pozycja[1]) == "number" then
-                poz_start.takeObject({
+                obj = poz_start.takeObject({
                     --move to pozycja
                     position=tab_pozycja, smooth=true, rotation=rot, flip=flip
                 })
             else
-                poz_start.takeObject({
+                obj = poz_start.takeObject({
                     --move to pozycja
                     position=tab_pozycja[i], smooth=true, rotation=rot, flip=flip
                 })
             end
         end
+    return obj
 
     elseif type(tab_guid) == "table" then
         --pick up specyfic cards and move to pozycja
@@ -464,18 +487,19 @@ function z_decka(deck,tab_guid,tab_pozycja,flip)
         for i, object in pairs(tab_guid) do
             if type(tab_pozycja[1]) == "number" then
     --print("Tab_pozycja jako numer")
-                poz_start.takeObject({
+                obj = poz_start.takeObject({
                     --move to pozycja
                     position=tab_pozycja, guid=object, smooth=true, rotation=rot, flip=flip
                 })
             else
     --print("Tab_pozycja jako co?"..type(tab_pozycja[1]))
-                poz_start.takeObject({
+                obj = poz_start.takeObject({
                     --move to pozycja
                     position=tab_pozycja[i], guid=object, smooth=true, rotation=rot, flip=flip
                 })
             end
         end
+        return obj
     end
 end
 

@@ -1,6 +1,6 @@
 cons={
     poz={
-        poz_scenario={-31.15,1,12.097},
+        poz_scenario={-31.15,1.5,12.097},
         poz_wydarzenie={-10.338,2.5,19.920},
         poz_kar_prz_dod={-0.485,2.5,29.631},
         poz_kar_bud={2.390,3,-5.557},
@@ -16,6 +16,13 @@ cons={
         poz_morale1={-0.372,2.5,20.264},--pozycja morale poziom 1
         poz_bestii_polowanie={-4.404,2.5,-1.694},--pozycja znacznika przy polowaniu
         poz_dod_kar_wyd_9={-8.959,2.5,-13.843},
+        offset_zycia=
+                {
+                    ["d5bf8e"] = 10.8,--kucharz
+                    ["21acbd"] = 7.2,--odkrywca
+                    ["bc2e91"] = 9.5,--ciesla
+                    ["c94125"] = 7.2--zolnierz
+                },
         poz_graczy={
             {-24.384,2.5,-32.26},--czerwony
             {24.027,2.5,-32.209},--bialy
@@ -23,7 +30,8 @@ cons={
             {49.965,2.5,-11.613}--roz
         },
         poz_zycia_graczy={
-            {-31.53,2.5,-36.023},
+            {-23.67, 0.96, -32.43},--zolnierz
+
         },
         poz_spe_odkrycia={
             {-30.815,2.5,-2.854},--57437c
@@ -140,10 +148,10 @@ cons={
             "d6fb62"
         },
         postacie={
+            "c94125",--zolnierz
             "d5bf8e",--kucharz
             "21acbd",--odkrywca
-            "bc2e91",--ciesla
-            "c94125"--zolnierz
+            "bc2e91"--ciesla
         },
         przed_stale={
             "7bd396",--1. mapa
