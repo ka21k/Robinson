@@ -2,6 +2,7 @@ cons={
     poz={
         poz_scenario={-31.15,1.5,12.097},
         poz_wydarzenie={-10.338,2.5,19.920},
+        poz_kar_gracz={-2.68, 2.5, -21.17},
         poz_kar_prz_dod={-0.485,2.5,29.631},
         poz_kar_bud={2.390,3,-5.557},
         poz_kar_pro={8.545,3,-5.653},

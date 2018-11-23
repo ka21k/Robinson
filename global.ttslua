@@ -55,7 +55,7 @@ menu={}
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[1])--znacznik rundy
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["6c484a"]=function()        --2. przekleta wyspa
@@ -81,7 +81,7 @@ menu={}
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[2])--znacznik rundy
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["5ce8f2"]=function()       --3. jenny w opalach
@@ -113,7 +113,7 @@ menu={}
                 snap_to_grid = false-- boolean [false],
             })
             --piony(cons.guid.znaczniki.zycie,cons.poz.poz_jenny)--znacznik zycia Jenny
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["525bec"]=function()       --4. wyspa ognia
@@ -142,7 +142,7 @@ menu={}
             piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.wulkan_start)--znacznik obozu
             odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]},true)
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["125393"]=function()       --5. wyspa kanibali
@@ -171,7 +171,7 @@ menu={}
             --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
             --odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]})
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["8dc2fd"]=function()       --6. rodzina robinsonow
@@ -200,7 +200,7 @@ menu={}
             --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
             --odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]})
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["4b3a6e"]=function()       --7. king kong
@@ -229,7 +229,7 @@ menu={}
             --piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
             odwracaj(cons.guid.znaczniki.oboz,180)
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["ea58a6"]=function()       --8. przyrodnik
@@ -264,7 +264,7 @@ menu={}
             --piony(cons.guid.znaczniki.zycie,cons.poz.poz_przyrodnika)--znacznik zycia przyrodnika
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
             --odwracaj(cons.guid.znaczniki.oboz,180)
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["6cb212"]=function()       --9. lowcy
@@ -295,7 +295,7 @@ menu={}
             piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
             piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
             odwracaj(cons.guid.znaczniki.oboz,180)--odwraca znacznik obozu na schronienie
-        end,2)
+        end,3)
         lastShuffle()
     end
     menu["3071ad"]=function()       --10. sladami doktora livingstone'a
@@ -397,6 +397,7 @@ function onObjectPickUp( player_color,  picked_up_object)
                     , hand.rot_z
                     }
             local obj = z_decka(cons.guid.deck.kar_postaci,slice({cons.guid.postacie[math.random(3-odciac)+1]},1),target,rotacja)
+
             -- print(type(obj.guid))
             -- print(cons.poz.offset_zycia[obj.guid])
             -- print(type(cons.poz.offset_zycia[obj.guid]))
@@ -404,15 +405,19 @@ function onObjectPickUp( player_color,  picked_up_object)
             Wait.time(function()
             getObjectFromGUID(cons.guid.znaczniki.zycie).clone({
                 position = {
-                     obj.getPosition().x - cons.poz.offset_zycia[obj.guid]
+                     obj.getPosition().x -  hand.trigger_forward_x * cons.poz.offset_zycia[obj.guid]
                     , 2.5
-                    , obj.getPosition().z - 3.65
+                    , obj.getPosition().z -  hand.trigger_forward_z * 3.65
                     },
                     snap_to_grid = false
                 }).setRotation(rotacja)
-                print(obj.getTransformForward().x)
-                print(obj.getTransformRight().z)
             end,2)
+            print(hand.trigger_forward_x)
+            print(hand.trigger_forward_z)
+            -- Wait.time(function()
+            --     obj.setPositionSmooth(target, false, false)
+            --     obj.setRotation(rotacja)
+            -- end,6)
             --piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
         end
 
