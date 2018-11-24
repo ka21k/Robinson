@@ -362,15 +362,15 @@ function odwracaj(tab_karty,flip)
 end
 
 function onObjectPickUp( player_color,  picked_up_object)
-
+    ile_graczy = #getSeatedPlayers()
  --akcja wykonuje sie podczas wyboru scenariusza z menu
-     if Player[player_color].host then
+     if Player[player_color].host and ile_graczy>0 then
         if(menu[picked_up_object.guid]) then
 
             menu[picked_up_object.guid]()
             delete_menu(cons.guid.menu)
 
-            ile_graczy = #getSeatedPlayers()
+
             local gracze = getSeatedPlayers()
 
      --wykladanie karty dla 4 graczy
@@ -401,6 +401,7 @@ function onObjectPickUp( player_color,  picked_up_object)
 
                 local obj = z_decka(cons.guid.deck.kar_postaci,{tab[math.random(1,#tab)]},target,rotacja)
 
+
                 for i,pos in pairs(tab) do
                     if pos==obj.guid then
                         table.remove(tab, i)
@@ -408,35 +409,37 @@ function onObjectPickUp( player_color,  picked_up_object)
                     end
                 end
 
-                local transform = function(obj_pos,root_pos,angle)
+                local new_poz = function(offset_x,offset_z)
+                                        local obj_pos = {x=offset_x,y=0,z=offset_z}
+                                        local root_pos = {x=0,y=0,z=0}
+                                        local angle = (-obj.getRotation().y) * math.pi/180
                                         local delta_x = obj_pos.x - root_pos.x
                                         local delta_z = obj_pos.z - root_pos.z
                                         local x = math.cos(angle) * delta_x - math.sin(angle) * delta_z + root_pos.x
                                         local z = math.sin(angle) * delta_x + math.cos(angle) * delta_z + root_pos.z
-                                        return x,z
+                                        return {obj.getPosition().x + x, 2.5, obj.getPosition().z + z}
                                     end
 
 
-                piony(cons.guid.znaczniki.kar_pies,cons.poz.poz_kar_pies)
-                piony(cons.guid.znaczniki.kar_pieta,cons.poz.poz_kar_pieta)
      --ustawienie pionow i znacznika zycia
                 Wait.time(function()
-
-                    local x,z = transform({x=cons.poz.offset_zycia[obj.guid],y=0,z=3.65},{x=0,y=0,z=0},(-obj.getRotation().y) * math.pi/180)
-
-                    getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = {obj.getPosition().x + x, 2.5, obj.getPosition().z + z}
+                    if ile_graczy == 1 then
+                       piony(cons.guid.znaczniki.kar_pies,new_poz(-7,-10),rotacja)
+                       piony(cons.guid.znaczniki.kar_pieta,new_poz(3,-10),rotacja)
+                   end
+                    getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(cons.poz.offset_zycia[obj.guid],3.65)
                                     ,snap_to_grid = false}).setRotation(rotacja)
-
-                    x,z = transform({x=9,y=0,z=0},{x=0,y=0,z=0},-obj.getRotation().y * math.pi/180)
-                         piony(cons.guid.znaczniki.zna_graczy[obj.guid][1],{obj.getPosition().x + x, 2.5, obj.getPosition().z + z})
-                    x,z = transform({x=6,y=0,z=0},{x=0,y=0,z=0},-obj.getRotation().y * math.pi/180)
-                         piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],{obj.getPosition().x + x, 2.5, obj.getPosition().z + z})
-                    x,z = transform({x=-14,y=0,z=0},{x=0,y=0,z=0},-obj.getRotation().y * math.pi/180)
-                         z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
-                                ,{obj.getPosition().x + x, 2.5, obj.getPosition().z + z},false).setRotation(rotacja)
-                    piony(cons.guid.znaczniki.pion_pies,cons.poz.poz_pion_pies)
-                    piony(cons.guid.znaczniki.pion_pieta,cons.poz.poz_pion_pieta)
-                    getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = cons.poz.poz_ser_pieta, snap_to_grid = false})
+                     piony(cons.guid.znaczniki.zna_graczy[obj.guid][1],new_poz(9,0),rotacja)
+                     piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],new_poz(6,0),rotacja)
+                     z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
+                            ,new_poz(-14,0),false).setRotation(rotacja)
+                    Wait.time(function()
+                        if ile_graczy == 1 then
+                           piony(cons.guid.znaczniki.pion_pies,new_poz(-6,-11.5),rotacja)
+                           piony(cons.guid.znaczniki.pion_pieta,new_poz(4,-11.5),rotacja)
+                           getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(3.1,-9.6), snap_to_grid = false}).setRotation(rotacja)
+                       end
+                   end,2)
                  end,2)
             end
 
@@ -522,13 +525,16 @@ function tasuj(tab_guid)
     return true
 end
 
-function piony(tab_pion,pozycja)
+function piony(tab_pion,pozycja,rotacja)
     if type(tab_pion)=="string" then
         tab_pion={tab_pion}
     end
     for i, pio in pairs(tab_pion) do
         local obj=getObjectFromGUID(pio)
         obj.setPositionSmooth(pozycja, false, false)
+        if rotacja~=nil then
+            obj.setRotation(rotacja)
+        end
         --print(pion_id)
     end
 end
