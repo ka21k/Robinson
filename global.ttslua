@@ -91,6 +91,7 @@ menu={}
         Wait.time(function()--rozdawanie kart
             z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[3]},cons.poz.poz_scenario,false)
             z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
+            obj2 = z_decka(cons.guid.deck.kar_przedm_start,{"c4e578"},{0,1,0},false)
             z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
             z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
@@ -113,7 +114,9 @@ menu={}
                 snap_to_grid = false-- boolean [false],
             })
             --piony(cons.guid.znaczniki.zycie,cons.poz.poz_jenny)--znacznik zycia Jenny
+            destroyObject(obj2)
         end,3)
+
         lastShuffle()
     end
     menu["525bec"]=function()       --4. wyspa ognia
@@ -360,95 +363,95 @@ end
 
 function onObjectPickUp( player_color,  picked_up_object)
 
---akcja wykonuje sie podczas wyboru scenariusza z menu
-    if(menu[picked_up_object.guid]) then
+ --akcja wykonuje sie podczas wyboru scenariusza z menu
+     if Player[player_color].host then
+        if(menu[picked_up_object.guid]) then
 
-        menu[picked_up_object.guid]()
-        delete_menu(cons.guid.menu)
+            menu[picked_up_object.guid]()
+            delete_menu(cons.guid.menu)
 
-        ile_graczy = #getSeatedPlayers()
-        local gracze = getSeatedPlayers()
+            ile_graczy = #getSeatedPlayers()
+            local gracze = getSeatedPlayers()
 
---wykladanie karty dla 4 graczy
-        if #(Player.getPlayers())==4 then
-            piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)
-        else
-            destroyObject(getObjectFromGUID(cons.guid.znaczniki.kar_4graczy))
-        end
+     --wykladanie karty dla 4 graczy
+            if #(Player.getPlayers())==4 then
+                piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)
+            else
+                destroyObject(getObjectFromGUID(cons.guid.znaczniki.kar_4graczy))
+            end
 
-        if ile_graczy<3 then
-            odciac=1
-        else
-            odciac=0
-        end
+            if ile_graczy<3 then
+                tab = slice(cons.guid.postacie,2)
+            end
 
---wykladanie kart postaci wszystkim graczom
-        for i,col in pairs(gracze) do
-            local offset = 2
-            local hand = Player[col].getPlayerHand()
-            local target =
-                { hand.pos_x + hand.trigger_forward_x * offset
-                , 2.5
-                , hand.pos_z + hand.trigger_forward_z * offset
-                }
-            local rotacja =
-                    {hand.rot_x
-                    , hand.rot_y+180--make object look out from hand
-                    , hand.rot_z
-                    }
-            local obj = z_decka(cons.guid.deck.kar_postaci,slice({cons.guid.postacie[math.random(3-odciac)+1]},1),target,rotacja)
-
-            -- print(type(obj.guid))
-            -- print(cons.poz.offset_zycia[obj.guid])
-            -- print(type(cons.poz.offset_zycia[obj.guid]))
-
-            Wait.time(function()
-            getObjectFromGUID(cons.guid.znaczniki.zycie).clone({
-                position = {
-                     obj.getPosition().x -  hand.trigger_forward_x * cons.poz.offset_zycia[obj.guid]
+     --wykladanie kart postaci wszystkim graczom
+            for i,col in pairs(gracze) do
+                local offset = 2
+                local hand = Player[col].getPlayerHand()
+                local target =
+                    { hand.pos_x + hand.trigger_forward_x * offset
                     , 2.5
-                    , obj.getPosition().z -  hand.trigger_forward_z * 3.65
-                    },
-                    snap_to_grid = false
-                }).setRotation(rotacja)
-            end,2)
-            print(hand.trigger_forward_x)
-            print(hand.trigger_forward_z)
-            -- Wait.time(function()
-            --     obj.setPositionSmooth(target, false, false)
-            --     obj.setRotation(rotacja)
-            -- end,6)
-            --piony(cons.guid.znaczniki.oboz,cons.poz.poz_kafli.plaza)--znacznik obozu
-        end
+                    , hand.pos_z + hand.trigger_forward_z * offset
+                    }
+                local rotacja =
+                        {hand.rot_x
+                        , hand.rot_y-180--make object look out from hand
+                        , hand.rot_z
+                        }
 
---ustawianie kamer na srodek stolu dla wszystkich graczy
-        for _, obj in pairs(gracze) do
-            Player[obj].lookAt({
-                position = {0,0,-5},
-                pitch    = 75,
-                yaw      = 0,
-                distance = 65,
-            })
+                local obj = z_decka(cons.guid.deck.kar_postaci,{tab[math.random(1,#tab)]},target,rotacja)
+
+                for i,pos in pairs(tab) do
+                    if pos==obj.guid then
+                        table.remove(tab, i)
+                        break
+                    end
+                end
+
+                local transform = function(obj_pos,root_pos,angle)
+                                        local delta_x = obj_pos.x - root_pos.x
+                                        local delta_z = obj_pos.z - root_pos.z
+                                        local x = math.cos(angle) * delta_x - math.sin(angle) * delta_z + root_pos.x
+                                        local z = math.sin(angle) * delta_x + math.cos(angle) * delta_z + root_pos.z
+                                        return x,z
+                                    end
+
+
+                piony(cons.guid.znaczniki.kar_pies,cons.poz.poz_kar_pies)
+                piony(cons.guid.znaczniki.kar_pieta,cons.poz.poz_kar_pieta)
+     --ustawienie pionow i znacznika zycia
+                Wait.time(function()
+
+                    local x,z = transform({x=cons.poz.offset_zycia[obj.guid],y=0,z=3.65},{x=0,y=0,z=0},(-obj.getRotation().y) * math.pi/180)
+
+                    getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = {obj.getPosition().x + x, 2.5, obj.getPosition().z + z}
+                                    ,snap_to_grid = false}).setRotation(rotacja)
+
+                    x,z = transform({x=9,y=0,z=0},{x=0,y=0,z=0},-obj.getRotation().y * math.pi/180)
+                         piony(cons.guid.znaczniki.zna_graczy[obj.guid][1],{obj.getPosition().x + x, 2.5, obj.getPosition().z + z})
+                    x,z = transform({x=6,y=0,z=0},{x=0,y=0,z=0},-obj.getRotation().y * math.pi/180)
+                         piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],{obj.getPosition().x + x, 2.5, obj.getPosition().z + z})
+                    x,z = transform({x=-14,y=0,z=0},{x=0,y=0,z=0},-obj.getRotation().y * math.pi/180)
+                         z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
+                                ,{obj.getPosition().x + x, 2.5, obj.getPosition().z + z},false).setRotation(rotacja)
+                    piony(cons.guid.znaczniki.pion_pies,cons.poz.poz_pion_pies)
+                    piony(cons.guid.znaczniki.pion_pieta,cons.poz.poz_pion_pieta)
+                    getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = cons.poz.poz_ser_pieta, snap_to_grid = false})
+                 end,2)
+            end
+
+     --ustawianie kamer na srodek stolu dla wszystkich graczy
+            for _, obj in pairs(gracze) do
+                Player[obj].lookAt({
+                    position = {0,0,-5},
+                    pitch    = 75,
+                    yaw      = 0,
+                    distance = 65,
+                })
+            end
+            broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
         end
-        broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
     end
-end
-
-function sendHome(obj, col)
-    local offset = 2
-    local hand = Player[col].getPlayerHand()
-    local target =
-        { hand.pos_x + hand.trigger_forward_x * offset
-        , 2.5
-        , hand.pos_z + hand.trigger_forward_z * offset
-        }
---print(hand.trigger_forward_x)
-    obj.setPositionSmooth(target)
-    obj.setRotationSmooth(
-        {hand.rot_x
-        , hand.rot_y --make object look out from hand
-        , hand.rot_z }
-    )
 end
 
 function z_decka(deck,tab_guid,tab_pozycja,flip)
@@ -519,11 +522,15 @@ function tasuj(tab_guid)
     return true
 end
 
-function piony(pion_id,pozycja)
-
-    local obj=getObjectFromGUID(pion_id)
-    obj.setPositionSmooth(pozycja, false, false)
-    --print(pion_id)
+function piony(tab_pion,pozycja)
+    if type(tab_pion)=="string" then
+        tab_pion={tab_pion}
+    end
+    for i, pio in pairs(tab_pion) do
+        local obj=getObjectFromGUID(pio)
+        obj.setPositionSmooth(pozycja, false, false)
+        --print(pion_id)
+    end
 end
 
 function findDeck(pos)
