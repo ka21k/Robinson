@@ -29,10 +29,6 @@ cons={
         poz_pion_pies={-26.88, 1.61, -20.63},
         poz_pion_pieta={-16.88, 1.61, -20.63},
         poz_ser_pieta={-15.68, 1.36, -22.27},
-        poz_zycia_graczy={
-            {-23.67, 0.96, -32.43},--zolnierz
-
-        },
         poz_spe_odkrycia={
             {-30.815,2.5,-2.854},--57437c
             {-28.119,2.5,-2.854},--4754e4
@@ -135,17 +131,17 @@ cons={
             "dd5fde"--11. livingstone'a artykul
         },
         kafle={
-            "8f043a",
-            "9fa5ee",
-            "c26a99",
-            "dd7d19",
-            "868ee0",
-            "996feb",
-            "485003",
-            "1db2eb",
-            "c83199",
-            "ea2ec9",
-            "d6fb62"
+            {guid="8f043a", biome="laka", wood=true, food=false, odkrycia=2, schronienie=false, totem=false, bestia=true},
+            {guid="9fa5ee", biome="gory", wood=false, food=true, odkrycia=1, schronienie=true, totem=true, bestia=true},
+            {guid="c26a99", biome="rzeka", wood=false, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
+            {guid="dd7d19", biome="wzgorza", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="868ee0", biome="gory", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="996feb", biome="laka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="485003", biome="wzgorza", wood=true, food=false, odkrycia=2, schronienie=false, totem=true, bestia=true},
+            {guid="1db2eb", biome="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false},
+            {guid="c83199", biome="laka", wood=true, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
+            {guid="ea2ec9", biome="rzeka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="d6fb62", biome="gory", wood=true, food=false, odkrycia=1, schronienie=true, totem=false, bestia=true}
         },
         postacie={
             "c94125",--zolnierz
