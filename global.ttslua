@@ -16,6 +16,10 @@ function onload()
                 break
             end
         end
+
+
+        snapPointList = getObjectFromGUID("472e1c").getSnapPoints()
+log(snapPointList)
 end
 
 function update ()
@@ -139,7 +143,7 @@ menu={}
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[4])--znacznik rundy
             piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
             piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.wulkan_start[1],cons.poz.poz_kafli.wulkan_start[2],cons.poz.poz_kafli.wulkan_start[3]+1.2})--znacznik obozu
-            odwracaj({cons.guid.przed_stale[5],cons.guid.przed_stale[9]},true)
+            odwracaj({cons.guid.przed_stale[5].guid,cons.guid.przed_stale[9].guid},true)
         end,3)
         lastShuffle()
     end
@@ -228,7 +232,7 @@ menu={}
             z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
             z_decka(cons.guid.deck.kar_pom_start,9,cons.poz.poz_kar_pom_start,false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[12]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[12].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 1
             z_decka(cons.guid.deck.kar_dod_pom,4,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 4
@@ -286,11 +290,14 @@ menu={}
         tasuj(cons.guid.tasuj)--tasowanie przed rozdaniem
         Wait.time(function()--rozdawanie kart
             z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[10]},cons.poz.poz_scenario,false)
+            local obj2 = z_decka(cons.guid.deck.scenariusze,{cons.guid.scenario[11]},cons.poz.poz_scenario_11,{45.00, 180.00, 180.00})
+            obj2.setLock(true)
+            obj2.setScale({26, 1.00, 26})
             z_decka(cons.guid.deck.kar_wraku,1,cons.poz.poz_akcja,true)
             z_decka(cons.guid.deck.kar_przedm_start,2,cons.poz.poz_prz_sta_dol,true)
-            z_decka(cons.guid.deck.kar_pom_start,{cons.guid.przed_stale[4],cons.guid.przed_stale[5],cons.guid.przed_stale[8]},cons.poz.poz_kar_pom_start,true)
+            z_decka(cons.guid.deck.kar_pom_start,{cons.guid.przed_stale[4].guid,cons.guid.przed_stale[5].guid,cons.guid.przed_stale[8].guid},cons.poz.poz_kar_pom_start,true)
             index_wolnych = index_wolnych + 3
-            z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[4],cons.guid.przed_pomysl[7],cons.guid.przed_pomysl[13]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[4].guid,cons.guid.przed_pomysl[7].guid,cons.guid.przed_pomysl[13].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 3
             z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[8]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
@@ -298,6 +305,7 @@ menu={}
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)--kafel startowy
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[2].guid},cons.poz.poz_kafli.plaza,false)--kafel do skasowania
             z_decka(cons.guid.deck.odkrycia,cons.guid.znaczniki.zetony_spec,cons.poz.poz_spe_odkrycia,false)--zetony specjalnych odkryc
+
         end,1)
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--niebieskie znaczniki do przedmiotow
@@ -339,6 +347,7 @@ function odwracaj(tab_karty,flip)
 end
 
 function onObjectPickUp( player_color,  picked_up_object)
+    znajdzBiom()
     ile_graczy = #getSeatedPlayers()
  --akcja wykonuje sie podczas wyboru scenariusza z menu
      if Player[player_color].host and ile_graczy>0 then
@@ -423,8 +432,8 @@ function onObjectPickUp( player_color,  picked_up_object)
      --ustawianie kamer na srodek stolu dla wszystkich graczy
             for _, obj in pairs(gracze) do
                 Player[obj].lookAt({
-                    position = {0,0,-5},
-                    pitch    = 35,
+                    position = {0,12,-5},
+                    pitch    = 22,
                     yaw      = 0,
                     distance = 65,
                 })
@@ -517,13 +526,29 @@ function piony(tab_pion,pozycja,rotacja)
 end
 
 function findDeck(pos)
-    pos2={pos[1],pos[2]-1,pos[3]}
+    local pos2={pos[1],pos[2]-1,pos[3]}
     local hitList = Physics.cast({
         origin       = pos2,
         direction    = {0,1,0},
         type         = 1,
         max_distance = 3,
         debug        = false,
+    })
+
+    return hitList
+end
+
+function findHitsInRadius(pos)
+    print(pos[1].." : "..pos[2].." : "..pos[3])
+    local pos2 = {pos[1],pos[2]-1,pos[3]}
+    local radius = 3
+    local hitList = Physics.cast({
+        origin       = pos2,
+        direction    = {0,1,0},
+        type         = 2,
+        size         = {radius},
+        max_distance = radius,
+        debug        = true,
     })
 
     return hitList
@@ -550,4 +575,51 @@ function lastShuffle()
             end
             return false
         end)
+end
+
+function oznaczDost(tab_biomow)
+    local tab_przed = {}
+    for i, biom in pairs(tab_biomow) do
+        for v,k in pairs(cons.guid.przed_stale) do
+            if biom == k.biom then
+                if getObjectFromGUID(k.guid) then
+
+                end
+            end
+        end
+    end
+end
+
+function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
+    local tab_biomow = {}
+    for i=1, #cons.poz.poz_kafli_wyspy do
+        --print(cons.poz.poz_kafli_wyspy[i][1].." : "..cons.poz.poz_kafli_wyspy[i][2].." : "..cons.poz.poz_kafli_wyspy[i][3])
+        --if pos then
+            local tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
+            --print(#tab)
+            --if tab and #tab >1 then
+                --print(#tab)
+                for j,hit in pairs(tab) do
+                    --print(hit.hit_object.guid)
+                    if hit.hit_object.guid ~= nil then
+                        for k,kaf in pairs(cons.guid.kafle) do
+                            if kaf.guid == hit.hit_object.guid then
+                                --print(hit.hit_object.guid)
+                                local rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
+                                --print(kaf.guid)
+                                if rot[3]>150 then
+                                    tab_biomow[#tab_biomow + 1] = kaf.biom
+                                    print(kaf.biom)
+                                    goto nast
+                                end
+                            end
+                        end
+                    end
+                end
+            --end
+        --end
+        ::nast::
+    end
+
+    return tab_biomow
 end

@@ -1,7 +1,8 @@
 cons={
     poz={
-        poz_scenario={-31.15,1.5,12.097},
-        poz_wydarzenie={-10.338,2.5,19.920},
+        poz_scenario={-31.15,1.5,12.097},--gdzie lezy scenariusz
+        poz_scenario_11={-39.06, 25.83, 58.34},--pozycja dla dodatku scenariusza 10
+        poz_wydarzenie={-10.34,2.5,19.920},
         poz_kar_gracz={-2.68, 2.5, -21.17},
         poz_kar_prz_dod={-0.485,2.5,29.631},
         poz_kar_bud={2.390,3,-5.557},
@@ -17,6 +18,14 @@ cons={
         poz_morale1={-0.372,2.5,20.264},--pozycja morale poziom 1
         poz_bestii_polowanie={-4.404,2.5,-1.694},--pozycja znacznika przy polowaniu
         poz_dod_kar_wyd_9={-8.959,2.5,-13.843},
+        poz_fazy={--pozycje znacznika fazy w rundzie
+            {-16.58, 2.73, 22.62},--wydarzenie
+            {-16.56, 2.73, 21.56},--morale
+            {-16.54, 2.73, 20.47},--produkcja
+            {-16.54, 2.73, 19.44},--akcja
+            {-16.56, 2.73, 18.37},--pogoda
+            {-16.54, 2.73, 17.33}--noc
+        },
         offset_zycia=
                 {
                     ["d5bf8e"] = 10.8,--kucharz
@@ -29,7 +38,7 @@ cons={
         poz_pion_pies={-26.88, 1.61, -20.63},
         poz_pion_pieta={-16.88, 1.61, -20.63},
         poz_ser_pieta={-15.68, 1.36, -22.27},
-        poz_spe_odkrycia={
+        poz_spe_odkrycia={--pozycje zetonow odkryc dla scenariusza 10
             {-30.815,2.5,-2.854},--57437c
             {-28.119,2.5,-2.854},--4754e4
             {-25.515,2.5,-2.854},--2d03b3
@@ -50,11 +59,11 @@ cons={
             {-33.247,2.5,22.788}--scenariusz 10, morale na 1, - kafelek 2, wyjac zetony specjalne odkryc, wor + kosz + latarnia (zakryte),
                                 --ogien + lina + noz (odkryte), bron na 1,
         },
-        poz_prz_sta_dol={
+        poz_prz_sta_dol={--pozycje kart przedmiotow na start dla kazdego scenariusza
             {-5.128,2.5,-13.663},
             {-1.407,2.5,-13.663}
         },
-        poz_kart_wyd_9={
+        poz_kart_wyd_9={--pozycje kart wydazen dla scenariusza 9
             {-23.3,2.5,-4.56},
             {-26.8,2.5,-4.56},
             {-30.3,2.5,-4.56},
@@ -62,27 +71,43 @@ cons={
             {-37.3,2.5,-4.56},
             {-40.8,2.5,-4.56}
         },
-        poz_bestii_9={
-            {-22.9,2.5,-9.9},--pozycje bestii dla scenariusza 9
+        poz_bestii_9={--pozycje kart bestii dla scenariusza 9
+            {-22.9,2.5,-9.9},
             {-25.9,2.5,-9.9},
             {-28.9,2.5,-9.9},
             {-31.9,2.5,-9.9},
             {-34.9,2.5,-9.9},
             {-37.9,2.5,-9.9}
         },
-        poz_zna_prz_sta={
+        poz_zna_prz_sta={--pozycje znacznikow uzycia dla przedmiotow startowych
             {-5.654,2.5,-15.279},
             {-4.464,2.5,-15.279},
             {-1.919,2.5,-15.279},
             {-0.729,2.5,-15.279}
         },
-        poz_kafli={
+        poz_kafli={--kafle startowe do scenariuszy
             plaza={-14.358,3,8.428},
             wulkan={-4.022,3,8.428},
             wulkan_start={1.177,3,8.646},
             kanibale={3.591,3,12.956}
         },
-        poz_kar_pom_start={
+        poz_kafli_wyspy={--pozycje kafelek wyspy do sprawdzania biomow
+            {-4.48, 2.45, 17.06},
+            {0.92, 2.45, 16.98},
+            {-11.94, 2.45, 12.72},
+            {-6.70, 2.45, 12.75},
+            {-1.55, 2.45, 12.95},
+            {3.59, 2.45, 12.96},
+            {-14.36, 2.45, 8.47},
+            {-9.23, 2.45, 8.42},
+            {-4.02, 2.45, 8.43},
+            {1.12, 2.45, 8.87},
+            {-11.81, 2.45, 3.99},
+            {-6.71, 2.45, 4.05},
+            {-1.46, 2.45, 4.24},
+            {3.99, 2.45, 4.35}
+        },
+        poz_kar_pom_start={--pozycje kart przedmiotow do wykonania na planszy
             {9.399,3,13.198},
             {13.102,3,13.206},
             {17.004,3,13.269},
@@ -104,7 +129,7 @@ cons={
         },
     },
     guid={
-        menu={
+        menu={--przyciski menu startowego
             "81e803",
             "05a789",
             "6c484a",
@@ -117,7 +142,7 @@ cons={
             "6cb212",
             "3071ad"
         },
-        scenario={
+        scenario={--karty scenariuszy
             "595aca",--1. rozbitkowie
             "93802e",--2. przekleta wyspa
             "c77856",--3. jenny w potrzebie
@@ -130,7 +155,7 @@ cons={
             "452443",--10. sladami doktora livingstone'a
             "dd5fde"--11. livingstone'a artykul
         },
-        kafle={
+        kafle={--kafelki wyspy
             {guid="8f043a", biome="laka", wood=true, food=false, odkrycia=2, schronienie=false, totem=false, bestia=true},
             {guid="9fa5ee", biome="gory", wood=false, food=true, odkrycia=1, schronienie=true, totem=true, bestia=true},
             {guid="c26a99", biome="rzeka", wood=false, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
@@ -143,24 +168,24 @@ cons={
             {guid="ea2ec9", biome="rzeka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
             {guid="d6fb62", biome="gory", wood=true, food=false, odkrycia=1, schronienie=true, totem=false, bestia=true}
         },
-        postacie={
+        postacie={--karty postaci
             "c94125",--zolnierz
             "d5bf8e",--kucharz
             "21acbd",--odkrywca
             "bc2e91"--ciesla
         },
-        przed_stale={
-            "7bd396",--1. mapa
-            "656bdb",--2. cegly
-            "f71f0e",--3. tama
-            "d8da57",--4. ogien
-            "186933",--5. noz
-            "26e4a5",--6. naczynia
-            "5f69a1",--7. lek
-            "e0e217",--8. lina
-            "df3256"--9. lopata
+        przed_stale={--karty przedmiotow startowych
+            {guid="7bd396", biom="rzeka"},--1. mapa
+            {guid="656bdb",biom="wzgorza"},--2. cegly
+            {guid="f71f0e",biom="rzeka"},--3. tama
+            {guid="d8da57",biom="gory"},--4. ogien
+            {guid="186933",biom="gory"},--5. noz
+            {guid="26e4a5",biom="wzgorza"},--6. naczynia
+            {guid="5f69a1",biom="laka"},--7. lek
+            {guid="e0e217",biom="laka"},--8. lina
+            {guid="df3256",biom="plaza"}--9. lopata
         },
-        przed_postaci={
+        przed_postaci={--specjalne przedmioty postaci
             ["c94125"] = --zolnierz
                 "c32660",--dzida
             ["d5bf8e"] = --kucharz
@@ -170,26 +195,26 @@ cons={
             ["bc2e91"] = --ciesla
                 "a053c5"--wnyki
         },
-        przed_pomysl={
-            "9939a5",--1. piwnica
-            "654187",--2. proca
-            "91d791",--3. tratwa
-            "2312a8",--4. latarnia
-            "138560",--5. palisady
-            "35ae6c",--6. luk
-            "0452db",--7. wor
-            "787076",--8. piec
-            "04bf24",--9. tarcza
-            "5606ad",--10. mor
-            "838a89",--11. lozko
-            "276cf9",--12. zagroda
-            "922446",--13. kosz
-            "614e20",--14. dziennik
-            "594f3e",--15. bebny
-            "051bed",--16. wilczy dol
-            "4fc507"--17. ogrodzenie
+        przed_pomysl={--karty pomyslow wymagajace specyficznego biomu lub przedmiotu do wytworzenia
+            {guid="9939a5",biom=nil,przedmiot="df3256"},--1. piwnica
+            {guid="654187",biom=nil,przedmiot=nil},--2. proca
+            {guid="91d791",biom=nil,przedmiot="e0e217"},--3. tratwa
+            {guid="2312a8",biom="wzgorza",przedmiot="d8da57"},--4. latarnia
+            {guid="138560",biom=nil,przedmiot="186933"},--5. pasy
+            {guid="35ae6c",biom=nil,przedmiot={"e0e217","186933"}},--6. luk
+            {guid="0452db",biom=nil,przedmiot=nil},--7. wor
+            {guid="787076",biom=nil,przedmiot="656bdb"},--8. piec
+            {guid="04bf24",biom=nil,przedmiot="e0e217"},--9. tarcza
+            {guid="5606ad",biom=nil,przedmiot="656bdb"},--10. mur
+            {guid="838a89",biom="laka",przedmiot=nil},--11. lozko
+            {guid="276cf9",biom=nil,przedmiot="e0e217"},--12. zagroda
+            {guid="922446",biom="laka",przedmiot=nil},--13. kosz
+            {guid="614e20",biom=nil,przedmiot=nil},--14. dziennik
+            {guid="594f3e",biom="wzgorza",przedmiot=nil},--15. bebny
+            {guid="051bed",biom=nil,przedmiot="df3256"},--16. wilczy dol
+            {guid="4fc507",biom=nil,przedmiot="df3256"}--17. ogrodzenie
         },
-        przed_scen={
+        przed_scen={--dodatkowe karty przedmiotow do scenariuszy
             "a26281",--1. pułapka
             "941673",--2. fosa
             "46e747",--3. swiety dzwon
@@ -210,7 +235,7 @@ cons={
             "d02b2d",--18. drabinka sznurowa
             "d2560f"--19. balista
         },
-        przed_start={
+        przed_start={--stale przedmioty sratowe dla kazdego scenariusza
             "18d285",--1. biblia
             "878d03",--2. suchary
             "5aec1e",--3. pusta butelka
@@ -220,14 +245,14 @@ cons={
             "f5533b",--7. fajka i tyton
             "c39557"--8. mlotek
         },
-        znaczniki={
-            zetony_spec={
+        znaczniki={--rozne piony i karty
+            zetony_spec={--zetony odkryc
                 "57437c",
                 "4754e4",
                 "2d03b3",
                 "6da49e"
             },
-            kar_4graczy="97226c",--karta dla 4 graczy
+            kar_4graczy="97226c",--karta  sprzatania obozu dla 4 graczy
             runda="cd2fab",--znacznik rundy
             oboz="56cd68",--znacznik obozu
             bron="809bda",--znacznik poziomu broni
@@ -235,7 +260,7 @@ cons={
             palisada="987b92",--znacznik poziomu palisady
             zycie="8145ba",--znacznik zycia Jenny
             morale="195da5",
-            zna_graczy={
+            zna_graczy={--piony do postaci
                 ["d5bf8e"] = {--kucharz
                             "cd3007",
                             "327c90"
@@ -258,7 +283,7 @@ cons={
             kar_pieta="d2d1d7",--karta pietaszka
             kar_pies="92b611"--karta psa
         },
-        deck={
+        deck={--poszczegolne decki kart
             scenariusze="2d0d57",
             kar_scenariuszy="fd1bc5",
             wyspa="6e9dcd",
@@ -280,7 +305,7 @@ cons={
             zna_niebieski="748467",
             zna_bestii="60fb9e"
         },
-        bestie_9={
+        bestie_9={--wyodrebnione karty bestii dla scenariusza 9
             "a93d6a",--tygrys
             "86e475",--puma
             "b28cc2",--kozica
@@ -288,7 +313,7 @@ cons={
             "4bd147",--aligator
             "b1f7e1"--jaguar
         },
-        tasuj={
+        tasuj={--decki do tasowania przed rozpoczeciem gry
             "3c8849","7ae043","742b30","5ae747","442458","b93ec4","3d808d"
             ,"e57b68","6e9dcd","a10387","b51179","be501e","509fca"
         }
