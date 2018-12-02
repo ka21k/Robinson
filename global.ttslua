@@ -347,7 +347,7 @@ function odwracaj(tab_karty,flip)
 end
 
 function onObjectPickUp( player_color,  picked_up_object)
-    znajdzBiom()
+    local biomy = znajdzBiom()
     ile_graczy = #getSeatedPlayers()
  --akcja wykonuje sie podczas wyboru scenariusza z menu
      if Player[player_color].host and ile_graczy>0 then
@@ -539,7 +539,7 @@ function findDeck(pos)
 end
 
 function findHitsInRadius(pos)
-    print(pos[1].." : "..pos[2].." : "..pos[3])
+    --print(pos[1].." : "..pos[2].." : "..pos[3])
     local pos2 = {pos[1],pos[2]-1,pos[3]}
     local radius = 3
     local hitList = Physics.cast({
@@ -592,9 +592,11 @@ end
 
 function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
     local tab_biomow = {}
+    local a=0
     for i=1, #cons.poz.poz_kafli_wyspy do
         --print(cons.poz.poz_kafli_wyspy[i][1].." : "..cons.poz.poz_kafli_wyspy[i][2].." : "..cons.poz.poz_kafli_wyspy[i][3])
         --if pos then
+        a=0
             local tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
             --print(#tab)
             --if tab and #tab >1 then
@@ -608,8 +610,11 @@ function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
                                 local rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
                                 --print(kaf.guid)
                                 if rot[3]>150 then
-                                    tab_biomow[#tab_biomow + 1] = kaf.biom
-                                    print(kaf.biom)
+                                    --print(#tab_biomow)
+                                    tab_biomow[#tab_biomow + 1] = kaf.biome
+                                    --print(kaf.biome)
+                                    a=a+1
+                                    print("ide do nastepnego po GOTO")
                                     goto nast
                                 end
                             end
@@ -619,7 +624,9 @@ function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
             --end
         --end
         ::nast::
-    end
+        if a>0 then print("jestem po wywolaniu GOTO"..a) end
 
+    end
+broadcastToAll("znaleziono. "..tab_biomow[1], {0,1,0})
     return tab_biomow
 end
