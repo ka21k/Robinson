@@ -541,17 +541,17 @@ end
 function findHitsInRadius(pos)
     --print(pos[1].." : "..pos[2].." : "..pos[3])
     local pos2 = {pos[1],pos[2]-1,pos[3]}
-    local radius = 3
+    local radius = 6
     local hitList = Physics.cast({
         origin       = pos2,
         direction    = {0,1,0},
         type         = 2,
-        size         = {radius},
+        size         = {radius,radius,radius},
         max_distance = radius,
-        debug        = true,
+        debug        = true
     })
 
-    return hitList
+    return hitList or {}
 end
 
 function lastShuffle()
@@ -593,39 +593,33 @@ end
 function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
     local tab_biomow = {}
     local a=0
+    local rot=""
+    local tab = {}
     for i=1, #cons.poz.poz_kafli_wyspy do
-        --print(cons.poz.poz_kafli_wyspy[i][1].." : "..cons.poz.poz_kafli_wyspy[i][2].." : "..cons.poz.poz_kafli_wyspy[i][3])
-        --if pos then
         a=0
-            local tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
-            --print(#tab)
-            --if tab and #tab >1 then
-                --print(#tab)
+            tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
+            find = false
                 for j,hit in pairs(tab) do
-                    --print(hit.hit_object.guid)
+
                     if hit.hit_object.guid ~= nil then
+                        --print(hit.hit_object.guid)
                         for k,kaf in pairs(cons.guid.kafle) do
+                            --print(kaf.guid)
                             if kaf.guid == hit.hit_object.guid then
-                                --print(hit.hit_object.guid)
-                                local rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
-                                --print(kaf.guid)
+                                --println(kaf)
+                                rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
+                                --print(rot)
                                 if rot[3]>150 then
-                                    --print(#tab_biomow)
                                     tab_biomow[#tab_biomow + 1] = kaf.biome
-                                    --print(kaf.biome)
-                                    a=a+1
-                                    print("ide do nastepnego po GOTO")
-                                    goto nast
+                                    --goto nast
+                                    find = true
                                 end
                             end
                         end
                     end
+                    if find then break end
                 end
-            --end
-        --end
-        ::nast::
-        if a>0 then print("jestem po wywolaniu GOTO"..a) end
-
+        --::nast::
     end
 broadcastToAll("znaleziono. "..tab_biomow[1], {0,1,0})
     return tab_biomow
