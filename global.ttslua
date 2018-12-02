@@ -548,7 +548,7 @@ function findHitsInRadius(pos)
         type         = 2,
         size         = {radius,radius,radius},
         max_distance = radius,
-        debug        = true
+        debug        = false
     })
 
     return hitList or {}
@@ -592,35 +592,25 @@ end
 
 function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
     local tab_biomow = {}
-    local a=0
-    local rot=""
+    local rot = {}
     local tab = {}
     for i=1, #cons.poz.poz_kafli_wyspy do
-        a=0
-            tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
-            find = false
-                for j,hit in pairs(tab) do
-
-                    if hit.hit_object.guid ~= nil then
-                        --print(hit.hit_object.guid)
-                        for k,kaf in pairs(cons.guid.kafle) do
-                            --print(kaf.guid)
-                            if kaf.guid == hit.hit_object.guid then
-                                --println(kaf)
-                                rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
-                                --print(rot)
-                                if rot[3]>150 then
-                                    tab_biomow[#tab_biomow + 1] = kaf.biome
-                                    --goto nast
-                                    find = true
-                                end
-                            end
+        tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
+        find = false
+        for j,hit in pairs(tab) do
+            if hit.hit_object.guid ~= nil then
+                for k,kaf in pairs(cons.guid.kafle) do
+                    if kaf.guid == hit.hit_object.guid then
+                        rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
+                        if rot[3]>150 then
+                            tab_biomow[kaf.biome] = true
+                            find = true
                         end
                     end
-                    if find then break end
                 end
-        --::nast::
+            end
+            if find then break end
+        end
     end
-broadcastToAll("znaleziono. "..tab_biomow[1], {0,1,0})
     return tab_biomow
 end
