@@ -92,20 +92,20 @@ cons={
             kanibale={3.591,3,12.956}
         },
         poz_kafli_wyspy={--pozycje kafelek wyspy do sprawdzania biomow
-            {-4.48, 2.45, 17.06},
-            {0.92, 2.45, 16.98},
-            {-11.94, 2.45, 12.72},
-            {-6.70, 2.45, 12.75},
-            {-1.55, 2.45, 12.95},
-            {3.59, 2.45, 12.96},
-            {-14.36, 2.45, 8.47},
-            {-9.23, 2.45, 8.42},
-            {-4.02, 2.45, 8.43},
-            {1.12, 2.45, 8.87},
-            {-11.81, 2.45, 3.99},
-            {-6.71, 2.45, 4.05},
-            {-1.46, 2.45, 4.24},
-            {3.99, 2.45, 4.35}
+            {-4.19, 2.46, 17.55},
+            {1.10, 2.46, 17.59},
+            {-11.91, 2.37, 12.90},
+            {-6.72, 2.37, 13.03},
+            {-1.47, 2.37, 13.13},
+            {3.80, 2.37, 13.20},
+            {-14.36, 2.37, 8.46},
+            {-9.16, 2.37, 8.58},
+            {-3.85, 2.37, 8.75},
+            {1.19, 2.37, 8.73},
+            {-11.67, 2.37, 4.03},
+            {-6.55, 2.37, 4.18},
+            {-1.31, 2.37, 4.42},
+            {3.99, 2.37, 4.48}
         },
         poz_kar_pom_start={--pozycje kart przedmiotow do wykonania na planszy
             {9.399,3,13.198},
@@ -156,17 +156,17 @@ cons={
             "dd5fde"--11. livingstone'a artykul
         },
         kafle={--kafelki wyspy
-            {guid="8f043a", biome="laka", wood=true, food=false, odkrycia=2, schronienie=false, totem=false, bestia=true},
-            {guid="9fa5ee", biome="gory", wood=false, food=true, odkrycia=1, schronienie=true, totem=true, bestia=true},
-            {guid="c26a99", biome="rzeka", wood=false, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
-            {guid="dd7d19", biome="wzgorza", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="868ee0", biome="gory", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="996feb", biome="laka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="485003", biome="wzgorza", wood=true, food=false, odkrycia=2, schronienie=false, totem=true, bestia=true},
-            {guid="1db2eb", biome="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false},
-            {guid="c83199", biome="laka", wood=true, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
-            {guid="ea2ec9", biome="rzeka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="d6fb62", biome="gory", wood=true, food=false, odkrycia=1, schronienie=true, totem=false, bestia=true}
+            {guid="8f043a", biom="laka", wood=true, food=false, odkrycia=2, schronienie=false, totem=false, bestia=true},
+            {guid="9fa5ee", biom="gory", wood=false, food=true, odkrycia=1, schronienie=true, totem=true, bestia=true},
+            {guid="c26a99", biom="rzeka", wood=false, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
+            {guid="dd7d19", biom="wzgorza", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="868ee0", biom="gory", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="996feb", biom="laka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="485003", biom="wzgorza", wood=true, food=false, odkrycia=2, schronienie=false, totem=true, bestia=true},
+            {guid="1db2eb", biom="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false},
+            {guid="c83199", biom="laka", wood=true, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
+            {guid="ea2ec9", biom="rzeka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
+            {guid="d6fb62", biom="gory", wood=true, food=false, odkrycia=1, schronienie=true, totem=false, bestia=true}
         },
         postacie={--karty postaci
             "c94125",--zolnierz
@@ -175,7 +175,7 @@ cons={
             "bc2e91"--ciesla
         },
         przed_stale={--karty przedmiotow startowych
-            {guid="7bd396", biom="rzeka"},--1. mapa
+            {guid="7bd396",biom="rzeka"},--1. mapa
             {guid="656bdb",biom="wzgorza"},--2. cegly
             {guid="f71f0e",biom="rzeka"},--3. tama
             {guid="d8da57",biom="gory"},--4. ogien
@@ -215,25 +215,25 @@ cons={
             {guid="4fc507",biom=nil,przedmiot="df3256"}--17. ogrodzenie
         },
         przed_scen={--dodatkowe karty przedmiotow do scenariuszy
-            "a26281",--1. pułapka
-            "941673",--2. fosa
-            "46e747",--3. swiety dzwon
-            "2b2d1a",--4. Wzmocnienie Broni
-            "81ce6e",--5. twierdza
-            "9221a8",--6. usypiacz
-            "16c06d",--7. szklarnia
-            "783241",--8. krzyz 2
-            "7dbe7d",--9. klatka
-            "1dda68",--10. tratwa
-            "97d95c",--11. szalupa
-            "ba7319",--12. siekiera
-            "25c309",--13. piroga
-            "d28296",--14. ogrod
-            "f63db9",--15. maszt
-            "52cb8a",--16. lodka
-            "501378",--17. krzyz 1
-            "d02b2d",--18. drabinka sznurowa
-            "d2560f"--19. balista
+            {guid="a26281",biom=nil,przedmiot="df3256"},--1. pułapka
+            {guid="941673",biom=nil,przedmiot="df3256"},--2. fosa
+            {guid="46e747",biom="wzgorza",przedmiot="e0e217"},--3. swiety dzwon
+            {guid="2b2d1a",biom=nil,przedmiot=nil},--4. Wzmocnienie Broni
+            {guid="81ce6e",biom=nil,przedmiot=nil},--5. twierdza
+            {guid="9221a8",biom={"wzgorza","laka"},przedmiot="d8da57"},--6. usypiacz
+            {guid="16c06d",biom=nil,przedmiot=nil},--7. szklarnia
+            {guid="783241",biom=nil,przedmiot=nil},--8. krzyz 2
+            {guid="7dbe7d",biom=nil,przedmiot=nil},--9. klatka
+            {guid="1dda68",biom=nil,przedmiot="e0e217"},--10. tratwa
+            {guid="97d95c",biom=nil,przedmiot="e0e217"},--11. szalupa
+            {guid="ba7319",biom="gory",przedmiot=nil},--12. siekiera
+            {guid="25c309",biom="rzeka",przedmiot="df3256"},--13. piroga
+            {guid="d28296",biom=nil,przedmiot="df3256"},--14. ogrod
+            {guid="f63db9",biom=nil,przedmiot="e0e217"},--15. maszt
+            {guid="52cb8a",biom=nil,przedmiot={"e0e217","186933"}},--16. lodka
+            {guid="501378",biom=nil,przedmiot=nil},--17. krzyz 1
+            {guid="d02b2d",biom=nil,przedmiot="e0e217"},--18. drabinka sznurowa
+            {guid="d2560f",biom=nil,przedmiot="e0e217"}--19. balista
         },
         przed_start={--stale przedmioty sratowe dla kazdego scenariusza
             "18d285",--1. biblia

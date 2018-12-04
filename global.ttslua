@@ -16,10 +16,6 @@ function onload()
                 break
             end
         end
-
-
-        snapPointList = getObjectFromGUID("472e1c").getSnapPoints()
-log(snapPointList)
 end
 
 function update ()
@@ -48,7 +44,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[12],cons.guid.przed_scen[15]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[12].guid,cons.guid.przed_scen[15].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
             z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
@@ -73,7 +69,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[3],cons.guid.przed_scen[17]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[3].guid,cons.guid.przed_scen[17].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
@@ -99,7 +95,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[10],cons.guid.przed_scen[16]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[10].guid,cons.guid.przed_scen[16].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
             z_decka(cons.guid.deck.kar_pyt,4,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,4,cons.poz.poz_wydarzenie,false)
@@ -131,7 +127,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[11],cons.guid.przed_scen[18]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[11].guid,cons.guid.przed_scen[18].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
@@ -159,7 +155,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[13],cons.guid.przed_scen[19]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[13].guid,cons.guid.przed_scen[19].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 2
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,4,cons.poz.poz_wydarzenie,false)
@@ -185,7 +181,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,9,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[14],cons.guid.przed_scen[2]},cons.poz.poz_kart_wyd_9,false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[14].guid,cons.guid.przed_scen[2].guid},cons.poz.poz_kart_wyd_9,false)
             z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -209,7 +205,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[1],cons.guid.przed_scen[6]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[1].guid,cons.guid.przed_scen[6].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -236,7 +232,7 @@ menu={}
             index_wolnych = index_wolnych + 1
             z_decka(cons.guid.deck.kar_dod_pom,4,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 4
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[7],cons.guid.przed_scen[9]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[7].guid,cons.guid.przed_scen[9].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -265,7 +261,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[4],cons.guid.przed_scen[5]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[4].guid,cons.guid.przed_scen[5].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_pyt,3,cons.poz.poz_kart_wyd_9,false)--dodatkowe karty wydarzen
@@ -299,7 +295,7 @@ menu={}
             index_wolnych = index_wolnych + 3
             z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[4].guid,cons.guid.przed_pomysl[7].guid,cons.guid.przed_pomysl[13].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 3
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[8]},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[8].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)--kafel startowy
@@ -347,7 +343,7 @@ function odwracaj(tab_karty,flip)
 end
 
 function onObjectPickUp( player_color,  picked_up_object)
-    local biomy = znajdzBiom()
+    local biomy = znajdzBiomKart()
     ile_graczy = #getSeatedPlayers()
  --akcja wykonuje sie podczas wyboru scenariusza z menu
      if Player[player_color].host and ile_graczy>0 then
@@ -419,11 +415,13 @@ function onObjectPickUp( player_color,  picked_up_object)
                      piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],new_poz(6,0),rotacja)
                      z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
                             ,new_poz(-14,0),false).setRotation(rotacja)
+                    znajdzBiomKart()
                     Wait.time(function()
                         if ile_graczy == 1 then
                            piony(cons.guid.znaczniki.pion_pies,new_poz(-6,-11.5),rotacja)
                            piony(cons.guid.znaczniki.pion_pieta,new_poz(4,-11.5),rotacja)
                            getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(3.1,-9.6), snap_to_grid = false}).setRotation(rotacja)
+
                        end
                    end,2)
                  end,2)
@@ -539,18 +537,29 @@ function findDeck(pos)
 end
 
 function findHitsInRadius(pos)
-    --print(pos[1].." : "..pos[2].." : "..pos[3])
     local pos2 = {pos[1],pos[2]-1,pos[3]}
-    local radius = 6
+    local radius = 5.3
     local hitList = Physics.cast({
         origin       = pos2,
         direction    = {0,1,0},
         type         = 2,
         size         = {radius,radius,radius},
-        max_distance = radius,
+        max_distance = 0.1,
         debug        = false
     })
+    return hitList or {}
+end
 
+function findHitsInSquare(pos)
+    local pos2 = {pos[1],pos[2]-1,pos[3]}
+    local hitList = Physics.cast({
+        origin       = pos2,
+        direction    = {0,1,0},
+        type         = 3,
+        size         = {3,1,4.5},
+        max_distance = 0.1,
+        debug        = false
+    })
     return hitList or {}
 end
 
@@ -590,7 +599,7 @@ function oznaczDost(tab_biomow)
     end
 end
 
-function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
+function znajdzBiomWyspy()--funkcja do znajdowania wylozonych kafelkow wyspy
     local tab_biomow = {}
     local rot = {}
     local tab = {}
@@ -603,7 +612,8 @@ function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
                     if kaf.guid == hit.hit_object.guid then
                         rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
                         if rot[3]>150 then
-                            tab_biomow[kaf.biome] = true
+                            tab_biomow[kaf.biom] = true
+                            print(kaf.biom)
                             find = true
                         end
                     end
@@ -613,4 +623,56 @@ function znajdzBiom()--funkcja do znajdowania wylozonych kafelkow wyspy
         end
     end
     return tab_biomow
+end
+
+function znajdzBiomKart()
+    local tab_biom_kart = {}
+    local rot = {}
+    local tab = {}
+    tab_biom_wyspy = znajdzBiomWyspy()
+    for _, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kart_wyd_9}) do
+        for a=1, #po do
+            tab = findHitsInSquare(po[a])
+            find = false
+            for j,hit in pairs(tab) do
+                if hit.hit_object.guid ~= nil then
+                    for i,obj in pairs({cons.guid.przed_stale,cons.guid.przed_pomysl,cons.guid.przed_scen}) do
+                        for k,kar in pairs(obj) do
+                            if kar.guid == hit.hit_object.guid then
+                                rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
+                                if type(kar.biom) == "table" then
+                                    --print(type(kar.biom))
+                                    if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] then
+                                        local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                        pos = {pos[1],4,pos[3]+1}
+                                        z_decka("6ec5a2",1,pos,false)
+                                        find = true
+                                    end
+                                else
+                                    if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] then
+                                        --print(type(kar.biom))
+                                        local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                        pos = {pos[1],4,pos[3]+1}
+                                        z_decka("6ec5a2",1,pos,false)
+                                        find = true
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            if find then break end
+            end
+            --if find then break end
+        end
+    end
+    return tab_bio_kart
+end
+function hasGreenMarker(tab)
+    for i, mark in pairs(tab) do
+        if getObjectFromGUID(mark.hit_object.guid).getName() == "Marker pomysłu" then
+            return true
+        end
+    end
+    return false
 end
