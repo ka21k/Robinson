@@ -625,6 +625,15 @@ function znajdzBiomWyspy()--funkcja do znajdowania wylozonych kafelkow wyspy
     return tab_biomow
 end
 
+function znajdzPrzedmioty(tab)
+    for _,prz in pairs(tab) do
+        local rot = getObjectFromGUID(prz.hit_object.guid).getRotation()
+        if rot[3] > 150 then
+            return true
+        end
+    end
+    return false
+end
 function znajdzBiomKart()
     local tab_biom_kart = {}
     local rot = {}
@@ -648,8 +657,7 @@ function znajdzBiomKart()
                                         z_decka("6ec5a2",1,pos,false)
                                         find = true
                                     end
-                                else
-                                    if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] then
+                                else if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] then
                                         --print(type(kar.biom))
                                         local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                         pos = {pos[1],4,pos[3]+1}

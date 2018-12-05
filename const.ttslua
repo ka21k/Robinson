@@ -185,6 +185,12 @@ cons={
             {guid="e0e217",biom="laka"},--8. lina
             {guid="df3256",biom="plaza"}--9. lopata
         },
+        przed_post={
+            {guid="c32660",przedmiot="186933"},--dzida
+            {guid="98f1a9",przedmiot="d8da57"},--palenisko
+            {guid="9c4b83",przedmiot="7bd396"},--skrot
+            {guid="a053c5",przedmiot="e0e217"}--wnyki
+        },
         przed_postaci={--specjalne przedmioty postaci
             ["c94125"] = --zolnierz
                 "c32660",--dzida
