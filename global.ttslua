@@ -4,6 +4,7 @@ function onload()
 
     --ustawienie kamery na menu dla gracza hosta
         local gracze = getSeatedPlayers()
+        biom_con = true
 
         for i, obj in pairs(gracze) do
             if Player[obj].host then
@@ -44,8 +45,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[12].guid,cons.guid.przed_scen[15].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
-            index_wolnych = index_wolnych + 2
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[12].guid,cons.guid.przed_scen[15].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -69,8 +69,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[3].guid,cons.guid.przed_scen[17].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
-            index_wolnych = index_wolnych + 2
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[3].guid,cons.guid.przed_scen[17].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -95,8 +94,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[10].guid,cons.guid.przed_scen[16].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
-            index_wolnych = index_wolnych + 2
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[10].guid,cons.guid.przed_scen[16].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,4,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,4,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -127,8 +125,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[11].guid,cons.guid.przed_scen[18].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
-            index_wolnych = index_wolnych + 2
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[11].guid,cons.guid.przed_scen[18].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.wulkan,false)
@@ -155,8 +152,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[13].guid,cons.guid.przed_scen[19].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
-            index_wolnych = index_wolnych + 2
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[13].guid,cons.guid.przed_scen[19].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,4,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -181,7 +177,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,9,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 9
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[14].guid,cons.guid.przed_scen[2].guid},cons.poz.poz_kart_wyd_9,false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[14].guid,cons.guid.przed_scen[2].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -205,7 +201,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[1].guid,cons.guid.przed_scen[6].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[1].guid,cons.guid.przed_scen[6].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -232,7 +228,7 @@ menu={}
             index_wolnych = index_wolnych + 1
             z_decka(cons.guid.deck.kar_dod_pom,4,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 4
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[7].guid,cons.guid.przed_scen[9].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[7].guid,cons.guid.przed_scen[9].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,6,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)
@@ -261,7 +257,7 @@ menu={}
             index_wolnych = index_wolnych + 9
             z_decka(cons.guid.deck.kar_dod_pom,5,slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 5
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[4].guid,cons.guid.przed_scen[5].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[4].guid,cons.guid.przed_scen[5].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_pyt,3,cons.poz.poz_kart_wyd_9,false)--dodatkowe karty wydarzen
@@ -295,7 +291,7 @@ menu={}
             index_wolnych = index_wolnych + 3
             z_decka(cons.guid.deck.kar_dod_pom,{cons.guid.przed_pomysl[4].guid,cons.guid.przed_pomysl[7].guid,cons.guid.przed_pomysl[13].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
             index_wolnych = index_wolnych + 3
-            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[8].guid},slice(cons.poz.poz_kar_pom_start,index_wolnych),false)
+            z_decka(cons.guid.deck.kar_scenariuszy,{cons.guid.przed_scen[8].guid},cons.poz.poz_kar_sce_plansza,false)
             z_decka(cons.guid.deck.kar_pyt,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.kar_ksi,5,cons.poz.poz_wydarzenie,false)
             z_decka(cons.guid.deck.wyspa,{cons.guid.kafle[8].guid},cons.poz.poz_kafli.plaza,true)--kafel startowy
@@ -368,6 +364,7 @@ function onObjectPickUp( player_color,  picked_up_object)
 
      --wykladanie kart postaci wszystkim graczom
             for i,col in pairs(gracze) do
+                local gracz = 0
                 local offset = 2
                 local hand = Player[col].getPlayerHand()
                 local target =
@@ -406,25 +403,27 @@ function onObjectPickUp( player_color,  picked_up_object)
      --ustawienie pionow i znacznika zycia
                 Wait.time(function()
                     if ile_graczy == 1 then
-                       piony(cons.guid.znaczniki.kar_pies,new_poz(-7,-10),rotacja)
-                       piony(cons.guid.znaczniki.kar_pieta,new_poz(3,-10),rotacja)
+                       piony(cons.guid.znaczniki.kar_pies,new_poz(-8,-10),rotacja)
+                       piony(cons.guid.znaczniki.kar_pieta,new_poz(1,-10),rotacja)
                    end
                     getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(cons.poz.offset_zycia[obj.guid],3.65)
                                     ,snap_to_grid = false}).setRotation(rotacja)
                      piony(cons.guid.znaczniki.zna_graczy[obj.guid][1],new_poz(9,0),rotacja)
                      piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],new_poz(6,0),rotacja)
                      z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
-                            ,new_poz(-14,0),false).setRotation(rotacja)
-                    znajdzBiomKart()
+                            ,slice(cons.poz.poz_kar_umie_pos_plansza,gracz),false).setRotation(rotacja)
+                    --znajdzBiomKart()
                     Wait.time(function()
                         if ile_graczy == 1 then
-                           piony(cons.guid.znaczniki.pion_pies,new_poz(-6,-11.5),rotacja)
-                           piony(cons.guid.znaczniki.pion_pieta,new_poz(4,-11.5),rotacja)
-                           getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(3.1,-9.6), snap_to_grid = false}).setRotation(rotacja)
+                           piony(cons.guid.znaczniki.pion_pies,new_poz(-7,-11.5),rotacja)
+                           piony(cons.guid.znaczniki.pion_pieta,new_poz(2,-11.5),rotacja)
+                           getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(1.1,-9.6), snap_to_grid = false}).setRotation(rotacja)
 
                        end
                    end,2)
                  end,2)
+
+                 gracz = gracz + 1
             end
 
      --ustawianie kamer na srodek stolu dla wszystkich graczy
@@ -437,6 +436,12 @@ function onObjectPickUp( player_color,  picked_up_object)
                 })
             end
             broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
+            if biom_con then
+                Wait.time(function()
+                    znajdzBiomKart()
+                end,4)
+                biom_con = false
+            end
         end
     end
 end
@@ -647,7 +652,7 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
     tab_biom_wyspy = znajdzBiomWyspy()
     tab_przed_done = znajdzPrzedmioty()
     local offset = {y=0}
-    for a, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kart_wyd_9}) do
+    for a, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kar_sce_plansza,cons.poz.poz_kar_umie_pos_plansza}) do
         for b,pos in pairs(po) do
             find = false
             tab = findHitsInSquare(pos)
