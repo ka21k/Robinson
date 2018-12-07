@@ -18,6 +18,7 @@ cons={
         poz_morale1={-0.372,2.5,20.264},--pozycja morale poziom 1
         poz_bestii_polowanie={-4.404,2.5,-1.694},--pozycja znacznika przy polowaniu
         poz_dod_kar_wyd_9={-8.959,2.5,-13.843},
+        poz_ziel_mark={27.84, 5, 27.80},
         poz_fazy={--pozycje znacznika fazy w rundzie
             {-16.58, 2.73, 22.62},--wydarzenie
             {-16.56, 2.73, 21.56},--morale
@@ -175,21 +176,21 @@ cons={
             "bc2e91"--ciesla
         },
         przed_stale={--karty przedmiotow startowych
-            {guid="7bd396",biom="rzeka"},--1. mapa
-            {guid="656bdb",biom="wzgorza"},--2. cegly
-            {guid="f71f0e",biom="rzeka"},--3. tama
-            {guid="d8da57",biom="gory"},--4. ogien
-            {guid="186933",biom="gory"},--5. noz
-            {guid="26e4a5",biom="wzgorza"},--6. naczynia
-            {guid="5f69a1",biom="laka"},--7. lek
-            {guid="e0e217",biom="laka"},--8. lina
-            {guid="df3256",biom="plaza"}--9. lopata
+            {guid="7bd396",biom="rzeka",przedmiot=false},--1. mapa
+            {guid="656bdb",biom="wzgorza",przedmiot=false},--2. cegly
+            {guid="f71f0e",biom="rzeka",przedmiot=false},--3. tama
+            {guid="d8da57",biom="gory",przedmiot=false},--4. ogien
+            {guid="186933",biom="gory",przedmiot=false},--5. noz
+            {guid="26e4a5",biom="wzgorza",przedmiot=false},--6. naczynia
+            {guid="5f69a1",biom="laka",przedmiot=false},--7. lek
+            {guid="e0e217",biom="laka",przedmiot=false},--8. lina
+            {guid="df3256",biom="plaza",przedmiot=false}--9. lopata
         },
         przed_post={
-            {guid="c32660",przedmiot="186933"},--dzida
-            {guid="98f1a9",przedmiot="d8da57"},--palenisko
-            {guid="9c4b83",przedmiot="7bd396"},--skrot
-            {guid="a053c5",przedmiot="e0e217"}--wnyki
+            {guid="c32660",biom=false,przedmiot="186933"},--dzida
+            {guid="98f1a9",biom=false,przedmiot="d8da57"},--palenisko
+            {guid="9c4b83",biom=false,przedmiot="7bd396"},--skrot
+            {guid="a053c5",biom=false,przedmiot="e0e217"}--wnyki
         },
         przed_postaci={--specjalne przedmioty postaci
             ["c94125"] = --zolnierz
@@ -202,44 +203,44 @@ cons={
                 "a053c5"--wnyki
         },
         przed_pomysl={--karty pomyslow wymagajace specyficznego biomu lub przedmiotu do wytworzenia
-            {guid="9939a5",biom=nil,przedmiot="df3256"},--1. piwnica
-            {guid="654187",biom=nil,przedmiot=nil},--2. proca
-            {guid="91d791",biom=nil,przedmiot="e0e217"},--3. tratwa
-            {guid="2312a8",biom="wzgorza",przedmiot="d8da57"},--4. latarnia
-            {guid="138560",biom=nil,przedmiot="186933"},--5. pasy
-            {guid="35ae6c",biom=nil,przedmiot={"e0e217","186933"}},--6. luk
-            {guid="0452db",biom=nil,przedmiot=nil},--7. wor
-            {guid="787076",biom=nil,przedmiot="656bdb"},--8. piec
-            {guid="04bf24",biom=nil,przedmiot="e0e217"},--9. tarcza
-            {guid="5606ad",biom=nil,przedmiot="656bdb"},--10. mur
-            {guid="838a89",biom="laka",przedmiot=nil},--11. lozko
-            {guid="276cf9",biom=nil,przedmiot="e0e217"},--12. zagroda
-            {guid="922446",biom="laka",przedmiot=nil},--13. kosz
-            {guid="614e20",biom=nil,przedmiot=nil},--14. dziennik
-            {guid="594f3e",biom="wzgorza",przedmiot=nil},--15. bebny
-            {guid="051bed",biom=nil,przedmiot="df3256"},--16. wilczy dol
-            {guid="4fc507",biom=nil,przedmiot="df3256"}--17. ogrodzenie
+            {guid="1f74c8",biom=false,przedmiot="df3256"},--1. piwnica
+            {guid="5306f4",biom=false,przedmiot=false},--2. proca
+            {guid="bf1561",biom=false,przedmiot="e0e217"},--3. tratwa
+            {guid="39cd22",biom="wzgorza",przedmiot="d8da57"},--4. latarnia
+            {guid="e5b139",biom=false,przedmiot="186933"},--5. pasy
+            {guid="609c24",biom=false,przedmiot={"e0e217","186933"}},--6. luk
+            {guid="c80a7c",biom=false,przedmiot=false},--7. wor
+            {guid="d32107",biom=false,przedmiot="656bdb"},--8. piec
+            {guid="fdb643",biom=false,przedmiot="e0e217"},--9. tarcza
+            {guid="57048c",biom=false,przedmiot="656bdb"},--10. mur
+            {guid="2cc2df",biom="laka",przedmiot=false},--11. lozko
+            {guid="594ce0",biom=false,przedmiot="e0e217"},--12. zagroda
+            {guid="020bab",biom="laka",przedmiot=false},--13. kosz
+            {guid="103ea9",biom=false,przedmiot=false},--14. dziennik
+            {guid="605d62",biom="wzgorza",przedmiot=false},--15. bebny
+            {guid="0c5dd0",biom=false,przedmiot="df3256"},--16. wilczy dol
+            {guid="e51da1",biom=false,przedmiot="df3256"}--17. ogrodzenie
         },
         przed_scen={--dodatkowe karty przedmiotow do scenariuszy
-            {guid="a26281",biom=nil,przedmiot="df3256"},--1. pułapka
-            {guid="941673",biom=nil,przedmiot="df3256"},--2. fosa
+            {guid="a26281",biom=false,przedmiot="df3256"},--1. pułapka
+            {guid="941673",biom=false,przedmiot="df3256"},--2. fosa
             {guid="46e747",biom="wzgorza",przedmiot="e0e217"},--3. swiety dzwon
-            {guid="2b2d1a",biom=nil,przedmiot=nil},--4. Wzmocnienie Broni
-            {guid="81ce6e",biom=nil,przedmiot=nil},--5. twierdza
+            {guid="2b2d1a",biom=false,przedmiot=false},--4. Wzmocnienie Broni
+            {guid="81ce6e",biom=false,przedmiot=false},--5. twierdza
             {guid="9221a8",biom={"wzgorza","laka"},przedmiot="d8da57"},--6. usypiacz
-            {guid="16c06d",biom=nil,przedmiot=nil},--7. szklarnia
-            {guid="783241",biom=nil,przedmiot=nil},--8. krzyz 2
-            {guid="7dbe7d",biom=nil,przedmiot=nil},--9. klatka
-            {guid="1dda68",biom=nil,przedmiot="e0e217"},--10. tratwa
-            {guid="97d95c",biom=nil,przedmiot="e0e217"},--11. szalupa
-            {guid="ba7319",biom="gory",przedmiot=nil},--12. siekiera
+            {guid="16c06d",biom=false,przedmiot=false},--7. szklarnia
+            {guid="783241",biom=false,przedmiot=false},--8. krzyz 2
+            {guid="7dbe7d",biom=false,przedmiot=false},--9. klatka
+            {guid="1dda68",biom=false,przedmiot="e0e217"},--10. tratwa
+            {guid="97d95c",biom=false,przedmiot="e0e217"},--11. szalupa
+            {guid="ba7319",biom="gory",przedmiot=false},--12. siekiera
             {guid="25c309",biom="rzeka",przedmiot="df3256"},--13. piroga
-            {guid="d28296",biom=nil,przedmiot="df3256"},--14. ogrod
-            {guid="f63db9",biom=nil,przedmiot="e0e217"},--15. maszt
-            {guid="52cb8a",biom=nil,przedmiot={"e0e217","186933"}},--16. lodka
-            {guid="501378",biom=nil,przedmiot=nil},--17. krzyz 1
-            {guid="d02b2d",biom=nil,przedmiot="e0e217"},--18. drabinka sznurowa
-            {guid="d2560f",biom=nil,przedmiot="e0e217"}--19. balista
+            {guid="d28296",biom=false,przedmiot="df3256"},--14. ogrod
+            {guid="f63db9",biom=false,przedmiot="e0e217"},--15. maszt
+            {guid="52cb8a",biom=false,przedmiot={"e0e217","186933"}},--16. lodka
+            {guid="501378",biom=false,przedmiot=false},--17. krzyz 1
+            {guid="d02b2d",biom=false,przedmiot="e0e217"},--18. drabinka sznurowa
+            {guid="d2560f",biom=false,przedmiot="e0e217"}--19. balista
         },
         przed_start={--stale przedmioty sratowe dla kazdego scenariusza
             "18d285",--1. biblia
@@ -298,7 +299,7 @@ cons={
             kar_umie_postaci="705378",
             kar_pom_start="2df2fd",
             kar_przedm_start="5ae747",
-            kar_dod_pom="442458",
+            kar_dod_pom="46118e",
             kar_pyt="3d808d",
             kar_ksi="e57b68",
             kar_bestie="7ae043",
@@ -309,7 +310,8 @@ cons={
             kar_eks="509fca",
             zna_bialy="11ea52",
             zna_niebieski="748467",
-            zna_bestii="60fb9e"
+            zna_bestii="60fb9e",
+            zna_pomy="6ec5a2"
         },
         bestie_9={--wyodrebnione karty bestii dla scenariusza 9
             "a93d6a",--tygrys
@@ -320,7 +322,7 @@ cons={
             "b1f7e1"--jaguar
         },
         tasuj={--decki do tasowania przed rozpoczeciem gry
-            "3c8849","7ae043","742b30","5ae747","442458","b93ec4","3d808d"
+            "3c8849","7ae043","742b30","5ae747","46118e","b93ec4","3d808d"
             ,"e57b68","6e9dcd","a10387","b51179","be501e","509fca"
         }
     }

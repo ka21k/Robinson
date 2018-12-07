@@ -503,8 +503,8 @@ function tasuj(tab_guid)
         tab_guid={tab_guid}
     end
     for i,guid in pairs(tab_guid) do
-                        obj = getObjectFromGUID(guid)
-                        obj.shuffle()
+        obj = getObjectFromGUID(guid)
+        obj.shuffle()
     end
     return true
 end
@@ -536,9 +536,9 @@ function findDeck(pos)
     return hitList
 end
 
-function findHitsInRadius(pos)
+function findHitsInRadius(pos)--znajduje obiekty w promieniu i zwraca tablice obiektow - do wyszukiwania wysp
     local pos2 = {pos[1],pos[2]-1,pos[3]}
-    local radius = 5.3
+    local radius = 5.1
     local hitList = Physics.cast({
         origin       = pos2,
         direction    = {0,1,0},
@@ -550,14 +550,14 @@ function findHitsInRadius(pos)
     return hitList or {}
 end
 
-function findHitsInSquare(pos)
+function findHitsInSquare(pos)--znajduje obiekty w promieniu i zwraca tablice obiektow - do wyszukiwania kart przedmiotow
     local pos2 = {pos[1],pos[2]-1,pos[3]}
     local hitList = Physics.cast({
         origin       = pos2,
         direction    = {0,1,0},
         type         = 3,
-        size         = {3,1,4.5},
-        max_distance = 0.1,
+        size         = {3.2,1,4.75},
+        max_distance = 0.2,
         debug        = false
     })
     return hitList or {}
@@ -586,20 +586,7 @@ function lastShuffle()
         end)
 end
 
-function oznaczDost(tab_biomow)
-    local tab_przed = {}
-    for i, biom in pairs(tab_biomow) do
-        for v,k in pairs(cons.guid.przed_stale) do
-            if biom == k.biom then
-                if getObjectFromGUID(k.guid) then
-
-                end
-            end
-        end
-    end
-end
-
-function znajdzBiomWyspy()--funkcja do znajdowania wylozonych kafelkow wyspy
+function znajdzBiomWyspy()--funkcja do znajdowania wylozonych i odkrytych kafelkow wyspy
     local tab_biomow = {}
     local rot = {}
     local tab = {}
@@ -613,7 +600,7 @@ function znajdzBiomWyspy()--funkcja do znajdowania wylozonych kafelkow wyspy
                         rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
                         if rot[3]>150 then
                             tab_biomow[kaf.biom] = true
-                            print(kaf.biom)
+                            --print("BIOM: "..kaf.biom)
                             find = true
                         end
                     end
@@ -625,61 +612,205 @@ function znajdzBiomWyspy()--funkcja do znajdowania wylozonych kafelkow wyspy
     return tab_biomow
 end
 
-function znajdzPrzedmioty(tab)
-    for _,prz in pairs(tab) do
-        local rot = getObjectFromGUID(prz.hit_object.guid).getRotation()
-        if rot[3] > 150 then
-            return true
+function znajdzPrzedmioty()--znajduje wytworzone przedmioty
+    local tab_przed = {}
+    for i,deck in pairs({cons.guid.przed_stale,cons.guid.przed_pomysl,cons.guid.przed_scen,cons.guid.przed_post}) do
+        for _,obj in pairs(deck) do
+            if getObjectFromGUID(obj.guid) ~= nil then
+                local rot = getObjectFromGUID(obj.guid).getRotation()
+                if rot[3] > 150 then
+                    tab_przed[obj.guid] = true
+                    --print("wytworzony: "..getObjectFromGUID(obj.guid).getName())
+                end
+            end
         end
     end
-    return false
+    return tab_przed
 end
-function znajdzBiomKart()
+
+function del_Marker(tab,offset)
+    for _,obj in pairs(tab) do
+        if getObjectFromGUID(obj.hit_object.guid).getName() == "Marker pomysłu" then
+            local mar = getObjectFromGUID(obj.hit_object.guid)
+
+            piony(mar.guid,{cons.poz.poz_ziel_mark[1],cons.poz.poz_ziel_mark[2]+offset.y,cons.poz.poz_ziel_mark[3]})
+            offset.y = offset.y + 1.5
+            --destroyObject(mar)
+        end
+    end
+end
+
+function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do wykonania
     local tab_biom_kart = {}
     local rot = {}
     local tab = {}
     tab_biom_wyspy = znajdzBiomWyspy()
-    for _, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kart_wyd_9}) do
-        for a=1, #po do
-            tab = findHitsInSquare(po[a])
+    tab_przed_done = znajdzPrzedmioty()
+    local offset = {y=0}
+    for a, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kart_wyd_9}) do
+        for b,pos in pairs(po) do
             find = false
-            for j,hit in pairs(tab) do
-                if hit.hit_object.guid ~= nil then
-                    for i,obj in pairs({cons.guid.przed_stale,cons.guid.przed_pomysl,cons.guid.przed_scen}) do
-                        for k,kar in pairs(obj) do
-                            if kar.guid == hit.hit_object.guid then
+            tab = findHitsInSquare(pos)
+            --print(a.." : "..#tab)
+
+            if #tab > 0 then
+                 --print(type(tab[1].hit_object.guid))
+            --z_decka("6ec5a2",1,pos,false)
+                local j=1
+                for j,hit in pairs(tab) do
+                    if hit.hit_object.guid ~= nil then
+                        local i=1
+                        for i,obj in pairs({cons.guid.przed_stale,cons.guid.przed_pomysl,cons.guid.przed_scen,cons.guid.przed_post}) do
+                            local k=1
+                            for k,kar in pairs(obj) do
                                 rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
-                                if type(kar.biom) == "table" then
-                                    --print(type(kar.biom))
-                                    if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] then
-                                        local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
-                                        pos = {pos[1],4,pos[3]+1}
-                                        z_decka("6ec5a2",1,pos,false)
-                                        find = true
-                                    end
-                                else if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] then
+
+                                if kar.guid == hit.hit_object.guid then
+                                     --local na = getObjectFromGUID(hit.hit_object.guid).getName()
+                                    if type(kar.biom) == "table" and type(kar.przedmiot) == "table" then
                                         --print(type(kar.biom))
-                                        local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
-                                        pos = {pos[1],4,pos[3]+1}
-                                        z_decka("6ec5a2",1,pos,false)
-                                        find = true
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] and tab_przed_done[kar.przedmiot[1]] and tab_przed_done[kar.przedmiot[2]] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_biom_wyspy[kar.biom[1]] or not tab_biom_wyspy[kar.biom[2]] or not tab_przed_done[kar.przedmiot[1]] or not tab_przed_done[kar.przedmiot[2]] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif type(kar.biom) == "table" and type(kar.przedmiot) == "string" then
+                                        --print(type(kar.biom))
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] and tab_przed_done[kar.przedmiot] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_biom_wyspy[kar.biom[1]] or not tab_biom_wyspy[kar.biom[2]] or not tab_przed_done[kar.przedmiot] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif type(kar.biom) == "string" and type(kar.przedmiot) == "table" then
+                                        --print(type(kar.biom))
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] and tab_przed_done[kar.przedmiot[1]] and tab_przed_done[kar.przedmiot[2]] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_biom_wyspy[kar.biom] or not tab_przed_done[kar.przedmiot[1]] or not tab_przed_done[kar.przedmiot[2]] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif type(kar.biom) == "string" and type(kar.przedmiot) == "string" then
+                                        --print(type(kar.biom))
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] and tab_przed_done[kar.przedmiot] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_biom_wyspy[kar.biom] or not tab_przed_done[kar.przedmiot] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif type(kar.biom) == "string" and not kar.przedmiot then
+                                        --print("przedmioty startowe")
+                                        --print("Name: "..na)
+                                        --print("Name: "..na.." Biom type: "..type(kar.biom).." Przedmiot: "..type(kar.przedmiot))
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_biom_wyspy[kar.biom] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif  type(kar.przedmiot) == "string" and not kar.biom then
+                                        --print(type(kar.biom))
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_przed_done[kar.przedmiot] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                                del_Marker(tab,offset)
+                                                find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_przed_done[kar.przedmiot] then
+                                                del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif type(kar.biom) == "table" and not kar.przedmiot then
+                                        --print(type(kar.biom))
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_biom_wyspy[kar.biom[1]] or not tab_biom_wyspy[kar.biom[2]] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+                                    elseif  type(kar.przedmiot) == "table" and not kar.biom then
+                                        --print("Name: "..na)
+                                        if rot[3]<150 and not hasGreenMarker(tab) and tab_przed_done[kar.przedmiot[1]] and tab_przed_done[kar.przedmiot[2]] then
+                                            local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
+                                            pos = {pos[1],4,pos[3]+1}
+                                            z_decka("6ec5a2",1,pos,false)
+                                            find = true
+                                        elseif rot[3]<150 and hasGreenMarker(tab) and not tab_przed_done[kar.przedmiot[1]] or not tab_przed_done[kar.przedmiot[2]] then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        elseif rot[3]>150 and hasGreenMarker(tab) then
+                                            del_Marker(tab,offset)
+                                            find = true
+                                        end
+
                                     end
                                 end
+
                             end
                         end
                     end
+                    if find then break end
                 end
-            if find then break end
+                --if find then break end
             end
             --if find then break end
         end
+        --if find then break end
     end
-    return tab_bio_kart
+    return tab_biom_kart
 end
 function hasGreenMarker(tab)
     for i, mark in pairs(tab) do
-        if getObjectFromGUID(mark.hit_object.guid).getName() == "Marker pomysłu" then
-            return true
+        if mark.hit_object.guid ~= nil then
+            if getObjectFromGUID(mark.hit_object.guid).getName() == "Marker pomysłu" then
+                return true
+
+            end
         end
     end
     return false
