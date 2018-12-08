@@ -53,7 +53,7 @@ menu={}
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[1])--znacznik rundy
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
         end,3)
         lastShuffle()
     end
@@ -77,7 +77,7 @@ menu={}
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[2])--znacznik rundy
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
         end,3)
         lastShuffle()
     end
@@ -102,7 +102,7 @@ menu={}
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[3])--znacznik rundy
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
             copy({getObjectFromGUID(cons.guid.znaczniki.zycie)})
             paste({
                 position     = cons.poz.poz_jenny,-- Vector  [x=0, y=3, z=0],
@@ -135,7 +135,7 @@ menu={}
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[4])--znacznik rundy
             piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.wulkan_start[1],cons.poz.poz_kafli.wulkan_start[2],cons.poz.poz_kafli.wulkan_start[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.wulkan_start[1],cons.poz.poz_kafli.wulkan_start[2],cons.poz.poz_kafli.wulkan_start[3]+1.68})--znacznik obozu
             odwracaj({cons.guid.przed_stale[5].guid,cons.guid.przed_stale[9].guid},true)
         end,3)
         lastShuffle()
@@ -161,7 +161,7 @@ menu={}
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[5])--znacznik rundy
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
         end,3)
         lastShuffle()
     end
@@ -185,7 +185,7 @@ menu={}
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[6])--znacznik rundy
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
         end,3)
         lastShuffle()
     end
@@ -209,7 +209,7 @@ menu={}
         Wait.time(function()
             z_decka(cons.guid.deck.zna_niebieski,4,cons.poz.poz_zna_prz_sta,false)--biale znaczniki do przedmiotow
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[7])--znacznik rundy
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
             odwracaj(cons.guid.znaczniki.oboz,180)
         end,3)
         lastShuffle()
@@ -241,7 +241,7 @@ menu={}
                 position     = cons.poz.poz_przyrodnika,-- Vector  [x=0, y=3, z=0],
                 snap_to_grid = false-- boolean [false],
             })
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
         end,3)
         lastShuffle()
     end
@@ -271,7 +271,7 @@ menu={}
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[9])--znacznik rundy
             piony(cons.guid.znaczniki.palisada,cons.poz.poz_palisada)--znacznik palisady
             piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
             odwracaj(cons.guid.znaczniki.oboz,180)--odwraca znacznik obozu na schronienie
         end,3)
         lastShuffle()
@@ -304,7 +304,7 @@ menu={}
             piony(cons.guid.znaczniki.runda,cons.poz.poz_rundy_sce[10])--znacznik rundy
             piony(cons.guid.znaczniki.morale,cons.poz.poz_morale1)--znacznik morale
             piony(cons.guid.znaczniki.bron,cons.poz.poz_broni1)--znacznik broni
-            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.2})--znacznik obozu
+            piony(cons.guid.znaczniki.oboz,{cons.poz.poz_kafli.plaza[1],cons.poz.poz_kafli.plaza[2],cons.poz.poz_kafli.plaza[3]+1.68})--znacznik obozu
             destroyObject(getObjectFromGUID("9fa5ee"))
         end,3)
         lastShuffle()

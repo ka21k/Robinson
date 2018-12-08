@@ -30,15 +30,10 @@ cons={
         offset_zycia=
                 {
                     ["d5bf8e"] = 10.8,--kucharz
-                    ["21acbd"] = 7.2,--odkrywca
+                    ["21acbd"] = 7.3,--odkrywca
                     ["bc2e91"] = 9.5,--ciesla
                     ["c94125"] = 7.2--zolnierz
                 },
-        poz_kar_pies={-25.62, 1.03, -21.87},
-        poz_kar_pieta={-15.62, 1.03, -21.88},
-        poz_pion_pies={-26.88, 1.61, -20.63},
-        poz_pion_pieta={-16.88, 1.61, -20.63},
-        poz_ser_pieta={-15.68, 1.36, -22.27},
         poz_spe_odkrycia={--pozycje zetonow odkryc dla scenariusza 10
             {-30.815,2.5,-2.854},--57437c
             {-28.119,2.5,-2.854},--4754e4
