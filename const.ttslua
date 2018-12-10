@@ -124,14 +124,14 @@ cons={
             {28.80, 2.79, 3.20}
         },
         poz_kar_sce_plansza={
-            {9.89, 2.79, -2.39},
-            {13.47, 2.79, -2.33}
+            {9.93, 1.27, -2.50},
+            {13.70, 1.27, -2.50}
         },
         poz_kar_umie_pos_plansza={
-            {28.85, 2.79, -2.49},
-            {24.90, 2.79, -2.46},
-            {21.27, 2.79, -2.49},
-            {17.40, 2.79, -2.40}
+            {28.78, 1.27, -2.50},
+            {25.00, 1.27, -2.50},
+            {21.24, 1.27, -2.50},
+            {17.47, 1.27, -2.50}
         }
     },
     guid={
@@ -162,17 +162,105 @@ cons={
             "dd5fde"--11. livingstone'a artykul
         },
         kafle={--kafelki wyspy
-            {guid="8f043a", biom="laka", wood=true, food=false, odkrycia=2, schronienie=false, totem=false, bestia=true},
-            {guid="9fa5ee", biom="gory", wood=false, food=true, odkrycia=1, schronienie=true, totem=true, bestia=true},
-            {guid="c26a99", biom="rzeka", wood=false, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
-            {guid="dd7d19", biom="wzgorza", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="868ee0", biom="gory", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="996feb", biom="laka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="485003", biom="wzgorza", wood=true, food=false, odkrycia=2, schronienie=false, totem=true, bestia=true},
-            {guid="1db2eb", biom="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false},
-            {guid="c83199", biom="laka", wood=true, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true},
-            {guid="ea2ec9", biom="rzeka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false},
-            {guid="d6fb62", biom="gory", wood=true, food=false, odkrycia=1, schronienie=true, totem=false, bestia=true}
+            {guid="8f043a", biom="laka", wood=true, food=false, odkrycia=2, schronienie=false, totem=false, bestia=true, production_left="wood", production_right="bestia", markery={
+                {0.00, 1.76, 1.72},--pozycja obozu
+                {-1.54, 1.76, 0.29},--pozycja dodatkowej produkcji lewe
+                {1.57, 1.76, 0.32},--pozycja dodatkowej produkcji prawe
+                {-0.99, 1.76, -1.12},--pozycja lewego pola produkcji
+                {0.04, 1.76, -0.96},--pozycja biomu
+                {1.14, 1.76, -1.08}--pozycja prawego pola produkcji
+
+            }},
+            {guid="9fa5ee", biom="gory", wood=false, food=true, odkrycia=1, schronienie=true, totem=true, bestia=true, production_left="food", production_right="bestia", markery={
+                {0.00, 1.76, 1.72},--pozycja obozu
+                {-1.53, 1.76, 0.31},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.34},--pozycja dodatkowej produkcji prawe
+                {-0.99, 1.76, -1.15},--pozycja lewego pola produkcji
+                {0.04, 1.76, -0.96},--pozycja biomu
+                {1.09, 1.76, -1.12}--pozycja prawego pola produkcji
+
+            }},
+            {guid="c26a99", biom="rzeka", wood=false, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true, production_left="bestia", production_right="food", markery={
+                {0.01, 1.76, 1.74},--pozycja obozu
+                {-1.51, 1.76, 0.29},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.32},--pozycja dodatkowej produkcji prawe
+                {-1.01, 1.76, -1.10},--pozycja lewego pola produkcji
+                {0.05, 1.76, -0.95},--pozycja biomu
+                {1.08, 1.76, -1.13}--pozycja prawego pola produkcji
+
+            }},
+            {guid="dd7d19", biom="wzgorza", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false, production_left="wood", production_right="food", markery={
+                {0.02, 1.76, 1.78},--pozycja obozu
+                {-1.57, 1.76, 0.30},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.32},--pozycja dodatkowej produkcji prawe
+                {-1.00, 1.76, -1.10},--pozycja lewego pola produkcji
+                {0.03, 1.76, -0.96},--pozycja biomu
+                {1.10, 1.76, -1.14}--pozycja prawego pola produkcji
+
+            }},
+            {guid="868ee0", biom="gory", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false, production_left="food", production_right="wood", markery={
+                {0.00, 1.76, 1.74},--pozycja obozu
+                {-1.52, 1.76, 0.30},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.33},--pozycja dodatkowej produkcji prawe
+                {-1.04, 1.76, -1.10},--pozycja lewego pola produkcji
+                {-0.01, 1.76, -0.93},--pozycja biomu
+                {1.06, 1.76, -1.09}--pozycja prawego pola produkcji
+
+            }},
+            {guid="996feb", biom="laka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false, production_left="food", production_right="wood", markery={
+                {0.01, 1.76, 1.72},--pozycja obozu
+                {-1.55, 1.76, 0.29},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.32},--pozycja dodatkowej produkcji prawe
+                {-0.99, 1.76, -1.11},--pozycja lewego pola produkcji
+                {0.06, 1.76, -0.95},--pozycja biomu
+                {1.12, 1.76, -1.13}--pozycja prawego pola produkcji
+
+            }},
+            {guid="485003", biom="wzgorza", wood=true, food=false, odkrycia=2, schronienie=false, totem=true, bestia=true, production_left="wood", production_right="bestia", markery={
+                {-0.01, 1.76, 1.73},--pozycja obozu
+                {-1.57, 1.76, 0.27},--pozycja dodatkowej produkcji lewe
+                {1.56, 1.76, 0.31},--pozycja dodatkowej produkcji prawe
+                {-1.01, 1.76, -1.13},--pozycja lewego pola produkcji
+                {0.01, 1.76, -0.96},--pozycja biomu
+                {1.08, 1.76, -1.15}--pozycja prawego pola produkcji
+
+            }},
+            {guid="1db2eb", biom="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false, production_left="wood", production_right="food", markery={
+                {0.00, 1.76, 1.68},--pozycja obozu
+                {-1.48, 1.76, 0.31},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.34},--pozycja dodatkowej produkcji prawe
+                {-0.99, 1.76, -1.09},--pozycja lewego pola produkcji
+                {0.05, 1.76, -0.93},--pozycja biomu
+                {1.08, 1.76, -1.11}--pozycja prawego pola produkcji
+
+            }},
+            {guid="c83199", biom="laka", wood=true, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true, production_left="food", production_right="bestia", markery={
+                {0.01, 1.76, 1.71},--pozycja obozu
+                {-1.53, 1.76, 0.28},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.32},--pozycja dodatkowej produkcji prawe
+                {-0.97, 1.76, -1.14},--pozycja lewego pola produkcji
+                {0.07, 1.76, -0.95},--pozycja biomu
+                {1.14, 1.76, -1.16}--pozycja prawego pola produkcji
+
+            }},
+            {guid="ea2ec9", biom="rzeka", wood=true, food=true, odkrycia=1, schronienie=false, totem=true, bestia=false, production_left="wood", production_right="food", markery={
+                {0.00, 1.76, 1.72},--pozycja obozu
+                {-1.52, 1.76, 0.29},--pozycja dodatkowej produkcji lewe
+                {1.60, 1.76, 0.33},--pozycja dodatkowej produkcji prawe
+                {-1.00, 1.76, -1.08},--pozycja lewego pola produkcji
+                {0.04, 1.76, -0.95},--pozycja biomu
+                {1.09, 1.76, -1.10}--pozycja prawego pola produkcji
+
+            }},
+            {guid="d6fb62", biom="gory", wood=true, food=false, odkrycia=1, schronienie=true, totem=false, bestia=true, production_left="wood", production_right="bestia", markery={
+                {0.00, 1.76, 1.72},--pozycja obozu
+                {-1.54, 1.76, 0.29},--pozycja dodatkowej produkcji lewe
+                {1.58, 1.76, 0.31},--pozycja dodatkowej produkcji prawe
+                {-1.05, 1.76, -1.11},--pozycja lewego pola produkcji
+                {0.00, 1.76, -0.96},--pozycja biomu
+                {1.02, 1.76, -1.13}--pozycja prawego pola produkcji
+
+            }}
         },
         postacie={--karty postaci
             "c94125",--zolnierz

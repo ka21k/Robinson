@@ -5,6 +5,7 @@ function onload()
     --ustawienie kamery na menu dla gracza hosta
         local gracze = getSeatedPlayers()
         biom_con = true
+        marker_ready = true
 
         for i, obj in pairs(gracze) do
             if Player[obj].host then
@@ -339,8 +340,21 @@ function odwracaj(tab_karty,flip)
 end
 
 function onObjectPickUp( player_color,  picked_up_object)
-    local biomy = znajdzBiomKart()
+
     ile_graczy = #getSeatedPlayers()
+
+            if marker_ready then
+                biomy = znajdzBiomKart()
+                marker_ready=false
+                --print("gotowe: ")
+                Wait.time(
+                    function()
+                        marker_ready=true
+                    end
+                ,2)
+            end
+
+
  --akcja wykonuje sie podczas wyboru scenariusza z menu
      if Player[player_color].host and ile_graczy>0 then
         if(menu[picked_up_object.guid]) then
@@ -441,6 +455,7 @@ function onObjectPickUp( player_color,  picked_up_object)
                     znajdzBiomKart()
                 end,4)
                 biom_con = false
+                --marker_ready = true
             end
         end
     end
@@ -541,9 +556,9 @@ function findDeck(pos)
     return hitList
 end
 
-function findHitsInRadius(pos)--znajduje obiekty w promieniu i zwraca tablice obiektow - do wyszukiwania wysp
+function findHitsInRadius(pos,rad)--znajduje obiekty w promieniu i zwraca tablice obiektow - do wyszukiwania wysp
     local pos2 = {pos[1],pos[2]-1,pos[3]}
-    local radius = 5.1
+    local radius = rad
     local hitList = Physics.cast({
         origin       = pos2,
         direction    = {0,1,0},
@@ -596,14 +611,15 @@ function znajdzBiomWyspy()--funkcja do znajdowania wylozonych i odkrytych kafelk
     local rot = {}
     local tab = {}
     for i=1, #cons.poz.poz_kafli_wyspy do
-        tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i])
+        tab = findHitsInRadius(cons.poz.poz_kafli_wyspy[i],5.1)
         find = false
         for j,hit in pairs(tab) do
             if hit.hit_object.guid ~= nil then
                 for k,kaf in pairs(cons.guid.kafle) do
                     if kaf.guid == hit.hit_object.guid then
                         rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
-                        if rot[3]>150 then
+
+                        if rot[3]>150 and not zakrytyBiom(hit.hit_object.guid) then
                             tab_biomow[kaf.biom] = true
                             --print("BIOM: "..kaf.biom)
                             find = true
@@ -633,6 +649,28 @@ function znajdzPrzedmioty()--znajduje wytworzone przedmioty
     return tab_przed
 end
 
+function zakrytyBiom(kafel)
+    for k,kaf in pairs(cons.guid.kafle) do
+        if kaf.guid == kafel then
+            --print(kafel)
+            local kaf_pos = getObjectFromGUID(kafel).getPosition()
+            local pos = kaf.markery[5]
+            local pos2 = {pos[1]+kaf_pos[1],pos[2],pos[3]+kaf_pos[3]}
+            local hit = findHitsInRadius(pos2,1.5)
+            for _,blk in pairs(hit) do
+                if blk.hit_object.guid ~= nil then
+                    if getObjectFromGUID(blk.hit_object.guid).getName() == "Czarny Marker" then
+                        --print("Czarny marker")
+                        return true
+                    end
+                end
+            end
+
+        end
+    end
+    return false
+end
+
 function del_Marker(tab,offset)
     for _,obj in pairs(tab) do
         if getObjectFromGUID(obj.hit_object.guid).getName() == "Marker pomysłu" then
@@ -651,6 +689,7 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
     local tab = {}
     tab_biom_wyspy = znajdzBiomWyspy()
     tab_przed_done = znajdzPrzedmioty()
+    --tab_zakryte_biomy = znajdzZakryteBiomy()
     local offset = {y=0}
     for a, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kar_sce_plansza,cons.poz.poz_kar_umie_pos_plansza}) do
         for b,pos in pairs(po) do
