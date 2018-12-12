@@ -225,15 +225,32 @@ cons={
                 {1.08, 1.76, -1.15}--pozycja prawego pola produkcji
 
             }},
-            {guid="1db2eb", biom="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false, production_left="wood", production_right="food", markery={
-                {0.00, 1.76, 1.68},--pozycja obozu
-                {-1.48, 1.76, 0.31},--pozycja dodatkowej produkcji lewe
-                {1.58, 1.76, 0.34},--pozycja dodatkowej produkcji prawe
-                {-0.99, 1.76, -1.09},--pozycja lewego pola produkcji
-                {0.05, 1.76, -0.93},--pozycja biomu
-                {1.08, 1.76, -1.11}--pozycja prawego pola produkcji
-
-            }},
+            -- {guid="1db2eb",
+            --     biom={nazwa="plaza", pos={0.05, 1.76, -0.93}},--pozycja biomu
+            --     produkcja={
+            --         {wood=true, pos={-0.99, 1.76, -1.09}},--pozycja lewego pola produkcji
+            --         {food=true, pos={1.08, 1.76, -1.11}},--pozycja prawego pola produkcji
+            --         {bestia=false, pos={}}-- nie wiem czy tu zostawic pustą pozycje???
+            --     },
+            --     odkrycia=0,
+            --     schronienie=false,
+            --     totem=false,
+            --     markery={
+            --         oboz={0.00, 1.76, 1.68},--pozycja obozu
+            --         extr_lewa={-1.48, 1.76, 0.31},--pozycja dodatkowej produkcji lewe
+            --         extr_prawa={1.58, 1.76, 0.34}--pozycja dodatkowej produkcji prawe
+            --     }
+            -- },
+            {guid="1db2eb", biom="plaza", wood=true, food=true, odkrycia=0, schronienie=false, totem=false, bestia=false, production_left="wood", production_right="food",
+                markery={
+                    {0.00, 1.76, 1.68},--pozycja obozu
+                    {-1.48, 1.76, 0.31},--pozycja dodatkowej produkcji lewe
+                    {1.58, 1.76, 0.34},--pozycja dodatkowej produkcji prawe
+                    {-0.99, 1.76, -1.09},--pozycja lewego pola produkcji
+                    {0.05, 1.76, -0.93},--pozycja biomu
+                    {1.08, 1.76, -1.11}--pozycja prawego pola produkcji
+                }
+            },
             {guid="c83199", biom="laka", wood=true, food=true, odkrycia=3, schronienie=false, totem=false, bestia=true, production_left="food", production_right="bestia", markery={
                 {0.01, 1.76, 1.71},--pozycja obozu
                 {-1.53, 1.76, 0.28},--pozycja dodatkowej produkcji lewe

@@ -671,6 +671,43 @@ function zakrytyBiom(kafel)
     return false
 end
 
+function extraProdukcja(kafel)--zwraca tablice dodatkowych zetonów polozonych na kaflu wyspy
+    local zetony = {}
+    for k,kaf in pairs(cons.guid.kafle) do
+        if kaf.guid == kafel then
+            local kaf_pos = getObjectFromGUID(kafel).getPosition()
+            local pos = mar
+            local pos2 = {pos[1]+kaf_pos[1],pos[2],pos[3]+kaf_pos[3]}
+            local hit = findHitsInRadius(pos2,1.5)
+            for k,mar in ipairs(kaf.markery) do
+                for i,blk in pairs(hit) do
+                    if blk.hit_object.guid ~= nil then
+                        if getObjectFromGUID(blk.hit_object.guid).getName() == "Czarny Marker" then
+                            zetony["Czarny Marker"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Biały Marker" then
+                            zetony["Biały Marker"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Niebieski Marker" then
+                            zetony["Niebieski Marker"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "+1 Drewno" then
+                            zetony["+1 Drewno"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "-1 Pion Akcji" then
+                            zetony["-1 Pion Akcji"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Żeton siły Bestii" then
+                            zetony["Żeton siły Bestii"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "+1 Pożywienie" then
+                            zetony["+1 Pożywienie"] = mar
+                        elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Znacznik Obozu" then
+                            zetony["Znacznik Obozu"] = mar
+                        end
+                    end
+                end
+            end
+        end
+
+    end
+    return zetony or {}
+end
+
 function del_Marker(tab,offset)
     for _,obj in pairs(tab) do
         if getObjectFromGUID(obj.hit_object.guid).getName() == "Marker pomysłu" then
