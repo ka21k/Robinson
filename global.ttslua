@@ -3,27 +3,27 @@
 function onload()
 
     --ustawienie kamery na menu dla gracza hosta
-        local gracze = getSeatedPlayers()
-        biom_con = true
-        marker_ready = true
+    local gracze = getSeatedPlayers()
+    biom_con = true
+    marker_ready = true
 
-        for i, obj in pairs(gracze) do
-            if Player[obj].host then
-                Player[obj].lookAt({
-                    position = cons.poz.poz_scenario,
-                    pitch    = 65,
-                    yaw      = 0,
-                    distance = 20,
-                })
-                break
-            end
+    for i, obj in pairs(gracze) do
+        if Player[obj].host then
+            Player[obj].lookAt({
+                position = cons.poz.poz_scenario,
+                pitch    = 65,
+                yaw      = 0,
+                distance = 20,
+            })
+            break
         end
+    end
 end
 
 function update ()
 end
 
-function slice(tbl, first, last, step)
+function slice(tbl, first, last, step)--obcina podaną tablicę
   local sliced = {}
 
   for i = first or 1, last or #tbl, step or 1 do
@@ -33,7 +33,7 @@ function slice(tbl, first, last, step)
   return sliced
 end
 
-menu={}
+menu={}--tablica warunków do rozłożenia kart według scenariusza
     menu["05a789"]=function()        --1. Rozbitkowie
         index_wolnych = 1
         liczba_rund = 12
@@ -311,7 +311,7 @@ menu={}
         lastShuffle()
     end
 
-function liczbaBestii9()
+function liczbaBestii9()--zwraca liczbe kart bestii do wylozenia w zaleznosci od ilosci graczy
     local best = #(Player.getPlayers())+1
     if best<3 then
         best=3
@@ -321,13 +321,13 @@ function liczbaBestii9()
     return best
 end
 
-function delete_menu(menu)
+function delete_menu(menu)-- kasuje przyciski menu
     for i=1, #menu do
         destroyObject(getObjectFromGUID(menu[i]))
     end
 end
 
-function odwracaj(tab_karty,flip)
+function odwracaj(tab_karty,flip)--odwraca karty
     if type(flip)=="number" then
         local od = getObjectFromGUID(tab_karty)
         od.rotate({x=0, y=0, z=180})
@@ -339,146 +339,133 @@ function odwracaj(tab_karty,flip)
     end
 end
 
-function onObjectPickUp( player_color,  picked_up_object)
-
-    ile_graczy = #getSeatedPlayers()
-
-            if marker_ready then
-                biomy = znajdzBiomKart()
-                marker_ready=false
-                --print("gotowe: ")
-                Wait.time(
-                    function()
-                        marker_ready=true
-                    end
-                ,2)
+function onObjectPickUp( player_color,  picked_up_object)--akcje zwiazane z wykladaniem znaczników
+    --wyklada zielone markery na karty przedmiotów
+    if marker_ready then
+        biomy = znajdzBiomKart()
+        marker_ready=false
+        --print("gotowe: ")
+        Wait.time(
+            function()
+                marker_ready=true
             end
+        ,2)
+    end
 
-
- --akcja wykonuje sie podczas wyboru scenariusza z menu
-     if Player[player_color].host and ile_graczy>0 then
-        if(menu[picked_up_object.guid]) then
-
-            menu[picked_up_object.guid]()
-            delete_menu(cons.guid.menu)
-
-
-            local gracze = getSeatedPlayers()
-
-     --wykladanie karty dla 4 graczy
-            if #(Player.getPlayers())==4 then
-                piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)
-            else
-                destroyObject(getObjectFromGUID(cons.guid.znaczniki.kar_4graczy))
-            end
-
-            if ile_graczy<3 then
-                tab = slice(cons.guid.postacie,2)
-            end
-
-     --wykladanie kart postaci wszystkim graczom
-            for i,col in pairs(gracze) do
-                local gracz = 0
-                local offset = 2
-                local hand = Player[col].getPlayerHand()
-                local target =
-                    { hand.pos_x + hand.trigger_forward_x * offset
-                    , 2.5
-                    , hand.pos_z + hand.trigger_forward_z * offset
-                    }
-                local rotacja =
-                        {hand.rot_x
-                        , hand.rot_y-180--make object look out from hand
-                        , hand.rot_z
-                        }
-
-                local obj = z_decka(cons.guid.deck.kar_postaci,{tab[math.random(1,#tab)]},target,rotacja)
-
-
-                for i,pos in pairs(tab) do
-                    if pos==obj.guid then
-                        table.remove(tab, i)
-                        break
-                    end
-                end
-
-                local new_poz = function(offset_x,offset_z)
-                                        local obj_pos = {x=offset_x,y=0,z=offset_z}
-                                        local root_pos = {x=0,y=0,z=0}
-                                        local angle = (-obj.getRotation().y) * math.pi/180
-                                        local delta_x = obj_pos.x - root_pos.x
-                                        local delta_z = obj_pos.z - root_pos.z
-                                        local x = math.cos(angle) * delta_x - math.sin(angle) * delta_z + root_pos.x
-                                        local z = math.sin(angle) * delta_x + math.cos(angle) * delta_z + root_pos.z
-                                        return {obj.getPosition().x + x, 2.5, obj.getPosition().z + z}
-                                    end
-
-
-     --ustawienie pionow i znacznika zycia
-                Wait.time(function()
-                    if ile_graczy == 1 then
-                       piony(cons.guid.znaczniki.kar_pies,new_poz(-8,-10),rotacja)
-                       piony(cons.guid.znaczniki.kar_pieta,new_poz(1,-10),rotacja)
-                   end
-                    getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(cons.poz.offset_zycia[obj.guid],3.65)
-                                    ,snap_to_grid = false}).setRotation(rotacja)
-                     piony(cons.guid.znaczniki.zna_graczy[obj.guid][1],new_poz(9,0),rotacja)
-                     piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],new_poz(6,0),rotacja)
-                     z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
-                            ,slice(cons.poz.poz_kar_umie_pos_plansza,gracz),false).setRotation(rotacja)
-                    --znajdzBiomKart()
-                    Wait.time(function()
-                        if ile_graczy == 1 then
-                           piony(cons.guid.znaczniki.pion_pies,new_poz(-7,-11.5),rotacja)
-                           piony(cons.guid.znaczniki.pion_pieta,new_poz(2,-11.5),rotacja)
-                           getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(1.1,-9.6), snap_to_grid = false}).setRotation(rotacja)
-
-                       end
-                   end,2)
-                 end,2)
-
-                 gracz = gracz + 1
-            end
-
-     --ustawianie kamer na srodek stolu dla wszystkich graczy
-            for _, obj in pairs(gracze) do
-                Player[obj].lookAt({
-                    position = {0,12,-5},
-                    pitch    = 22,
-                    yaw      = 0,
-                    distance = 65,
-                })
-            end
-            broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
-            if biom_con then
-                Wait.time(function()
-                    znajdzBiomKart()
-                end,4)
-                biom_con = false
-                --marker_ready = true
-            end
-        end
+    --akcja wykonuje sie na poczatku gry podczas wyboru scenariusza z menu
+    if Player[player_color].host and #getSeatedPlayers()>0 and menu[picked_up_object.guid] then
+        startGame(picked_up_object.guid,#getSeatedPlayers())
     end
 end
 
-function z_decka(deck,tab_guid,tab_pozycja,flip)
+function startGame(guid,ile_graczy)--rozkladanie kart postaci, pionów i kart według wybranego scenariusza
+
+    menu[guid]()
+    delete_menu(cons.guid.menu)
+
+    local gracze = getSeatedPlayers()
+
+    --wykladanie/kasowanie karty dla 4 graczy
+    if #(Player.getPlayers())==4 then
+        piony(cons.guid.znaczniki.kar_4graczy,cons.poz.poz_kar_4graczy)
+    else
+        destroyObject(getObjectFromGUID(cons.guid.znaczniki.kar_4graczy))
+    end
+
+    if ile_graczy<3 then
+        tab = slice(cons.guid.postacie,2)
+    end
+
+    --wykladanie kart postaci wszystkim graczom
+    for i,col in pairs(gracze) do
+        local gracz = 0
+        local offset = 2
+        local hand = Player[col].getPlayerHand()
+        local target =
+            { hand.pos_x + hand.trigger_forward_x * offset
+            , 2.5
+            , hand.pos_z + hand.trigger_forward_z * offset
+            }
+        local rotacja =
+                {hand.rot_x
+                , hand.rot_y-180--make object look out from hand
+                , hand.rot_z
+                }
+        local obj = z_decka(cons.guid.deck.kar_postaci,{tab[math.random(1,#tab)]},target,rotacja)
+
+        for i,pos in pairs(tab) do
+            if pos==obj.guid then
+                table.remove(tab, i)
+                break
+            end
+        end
+
+        local new_poz = function(offset_x,offset_z)
+                            local obj_pos = {x=offset_x,y=0,z=offset_z}
+                            local root_pos = {x=0,y=0,z=0}
+                            local angle = (-obj.getRotation().y) * math.pi/180
+                            local delta_x = obj_pos.x - root_pos.x
+                            local delta_z = obj_pos.z - root_pos.z
+                            local x = math.cos(angle) * delta_x - math.sin(angle) * delta_z + root_pos.x
+                            local z = math.sin(angle) * delta_x + math.cos(angle) * delta_z + root_pos.z
+                            return {obj.getPosition().x + x, 2.5, obj.getPosition().z + z}
+                        end
+        --ustawienie pionow i znacznika zycia
+        Wait.time(function()
+            if ile_graczy == 1 then
+               piony(cons.guid.znaczniki.kar_pies,new_poz(-8,-10),rotacja)
+               piony(cons.guid.znaczniki.kar_pieta,new_poz(1,-10),rotacja)
+           end
+            getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(cons.poz.offset_zycia[obj.guid],3.65)
+                            ,snap_to_grid = false}).setRotation(rotacja)
+             piony(cons.guid.znaczniki.zna_graczy[obj.guid][1],new_poz(9,0),rotacja)
+             piony(cons.guid.znaczniki.zna_graczy[obj.guid][2],new_poz(6,0),rotacja)
+             z_decka(cons.guid.deck.kar_umie_postaci,{cons.guid.przed_postaci[obj.guid]}
+                    ,slice(cons.poz.poz_kar_umie_pos_plansza,gracz),false).setRotation(rotacja)
+            Wait.time(function()
+                if ile_graczy == 1 then
+                   piony(cons.guid.znaczniki.pion_pies,new_poz(-7,-11.5),rotacja)
+                   piony(cons.guid.znaczniki.pion_pieta,new_poz(2,-11.5),rotacja)
+                   getObjectFromGUID(cons.guid.znaczniki.zycie).clone({position = new_poz(1.1,-9.6), snap_to_grid = false}).setRotation(rotacja)
+
+               end
+           end,2)
+         end,2)
+
+         gracz = gracz + 1
+    end
+    --ustawianie kamer na srodek stolu dla wszystkich graczy
+    for _, obj in pairs(gracze) do
+        Player[obj].lookAt({
+            position = {0,12,-5},
+            pitch    = 22,
+            yaw      = 0,
+            distance = 65,
+        })
+    end
+    broadcastToAll("Wszystko gotowe. Powodzenia.", {0,1,0})
+    if biom_con then
+        Wait.time(function()
+            znajdzBiomKart()
+        end,4)
+        biom_con = false
+    end
+end
+
+function z_decka(deck,tab_guid,tab_pozycja,flip)--wyklada karty z podanego stosu lub worka
     --if tab_guid = 1 then pick up random card from the top of deck
     local poz_start = getObjectFromGUID(deck)
     local rot = nil
     local obj = nil
     if type(flip) == "table" then
-        --print("flip jest Tablicą")
         rot = flip
         flip = false
     end
     if poz_start.tag == "Bag" then
         if flip then
-            --print("flip jest True")
             rot = {180,0,0}
         end
-
     end
-
     if type(tab_guid) == "number" then
         --pick up card
         for i=1, tab_guid do
@@ -498,16 +485,13 @@ function z_decka(deck,tab_guid,tab_pozycja,flip)
 
     elseif type(tab_guid) == "table" then
         --pick up specyfic cards and move to pozycja
-    --print("Tab_guid jako tablica")
         for i, object in pairs(tab_guid) do
             if type(tab_pozycja[1]) == "number" then
-    --print("Tab_pozycja jako numer")
                 obj = poz_start.takeObject({
                     --move to pozycja
                     position=tab_pozycja, guid=object, smooth=true, rotation=rot, flip=flip
                 })
             else
-    --print("Tab_pozycja jako co?"..type(tab_pozycja[1]))
                 obj = poz_start.takeObject({
                     --move to pozycja
                     position=tab_pozycja[i], guid=object, smooth=true, rotation=rot, flip=flip
@@ -518,7 +502,7 @@ function z_decka(deck,tab_guid,tab_pozycja,flip)
     end
 end
 
-function tasuj(tab_guid)
+function tasuj(tab_guid)--tasowanie przekazanego obiektu
     if type(tab_guid)=="string" then
         tab_guid={tab_guid}
     end
@@ -529,7 +513,7 @@ function tasuj(tab_guid)
     return true
 end
 
-function piony(tab_pion,pozycja,rotacja)
+function piony(tab_pion,pozycja,rotacja)--ustawia piony na zadanej pozycji
     if type(tab_pion)=="string" then
         tab_pion={tab_pion}
     end
@@ -539,11 +523,10 @@ function piony(tab_pion,pozycja,rotacja)
         if rotacja~=nil then
             obj.setRotation(rotacja)
         end
-        --print(pion_id)
     end
 end
 
-function findDeck(pos)
+function findDeck(pos)--wyszukuje stos kart na zadanej pozycji
     local pos2={pos[1],pos[2]-1,pos[3]}
     local hitList = Physics.cast({
         origin       = pos2,
@@ -583,21 +566,18 @@ function findHitsInSquare(pos)--znajduje obiekty w promieniu i zwraca tablice ob
     return hitList or {}
 end
 
-function lastShuffle()
+function lastShuffle()--czeka na uformowanie sie stosu kart wydarzen i tasuje je
     objekt = nil
     Wait.condition(
         function()
             objekt.shuffle()
         end,
         function()
-
             hitList = findDeck(cons.poz.poz_wydarzenie)
-
             if #hitList == 0 then
                 return false
             end
             deck=hitList[1].hit_object
-
             if deck.tag == "Deck" and #deck.getObjects()==liczba_rund then
                 objekt=deck
                 return true
@@ -649,10 +629,9 @@ function znajdzPrzedmioty()--znajduje wytworzone przedmioty
     return tab_przed
 end
 
-function zakrytyBiom(kafel)
+function zakrytyBiom(kafel)--sprawdza czy biom kafla wyspy jest zakryty czarnym markerem
     for k,kaf in pairs(cons.guid.kafle) do
         if kaf.guid == kafel then
-            --print(kafel)
             local kaf_pos = getObjectFromGUID(kafel).getPosition()
             local pos = kaf.markery[5]
             local pos2 = {pos[1]+kaf_pos[1],pos[2],pos[3]+kaf_pos[3]}
@@ -660,12 +639,10 @@ function zakrytyBiom(kafel)
             for _,blk in pairs(hit) do
                 if blk.hit_object.guid ~= nil then
                     if getObjectFromGUID(blk.hit_object.guid).getName() == "Czarny Marker" then
-                        --print("Czarny marker")
                         return true
                     end
                 end
             end
-
         end
     end
     return false
@@ -683,21 +660,21 @@ function extraProdukcja(kafel)--zwraca tablice dodatkowych zetonów polozonych n
                 for i,blk in pairs(hit) do
                     if blk.hit_object.guid ~= nil then
                         if getObjectFromGUID(blk.hit_object.guid).getName() == "Czarny Marker" then
-                            zetony["Czarny Marker"] = mar
+                            zetony[mar] = "Czarny Marker"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Biały Marker" then
-                            zetony["Biały Marker"] = mar
+                            zetony[mar] = "Biały Marker"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Niebieski Marker" then
-                            zetony["Niebieski Marker"] = mar
+                            zetony[mar] = "Niebieski Marker"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "+1 Drewno" then
-                            zetony["+1 Drewno"] = mar
+                            zetony[mar] = "+1 Drewno"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "-1 Pion Akcji" then
-                            zetony["-1 Pion Akcji"] = mar
+                            zetony[mar] = "-1 Pion Akcji"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Żeton siły Bestii" then
-                            zetony["Żeton siły Bestii"] = mar
+                            zetony[mar] = "Żeton siły Bestii"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "+1 Pożywienie" then
-                            zetony["+1 Pożywienie"] = mar
+                            zetony[mar] = "+1 Pożywienie"
                         elseif getObjectFromGUID(blk.hit_object.guid).getName() == "Znacznik Obozu" then
-                            zetony["Znacznik Obozu"] = mar
+                            zzetony[mar] = "Znacznik Obozu"
                         end
                     end
                 end
@@ -708,14 +685,12 @@ function extraProdukcja(kafel)--zwraca tablice dodatkowych zetonów polozonych n
     return zetony or {}
 end
 
-function del_Marker(tab,offset)
+function del_Marker(tab,offset)--usuwa zielone markery z kart
     for _,obj in pairs(tab) do
         if getObjectFromGUID(obj.hit_object.guid).getName() == "Marker pomysłu" then
             local mar = getObjectFromGUID(obj.hit_object.guid)
-
             piony(mar.guid,{cons.poz.poz_ziel_mark[1],cons.poz.poz_ziel_mark[2]+offset.y,cons.poz.poz_ziel_mark[3]})
             offset.y = offset.y + 1.5
-            --destroyObject(mar)
         end
     end
 end
@@ -726,17 +701,12 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
     local tab = {}
     tab_biom_wyspy = znajdzBiomWyspy()
     tab_przed_done = znajdzPrzedmioty()
-    --tab_zakryte_biomy = znajdzZakryteBiomy()
     local offset = {y=0}
     for a, po in pairs({cons.poz.poz_kar_pom_start,cons.poz.poz_kar_sce_plansza,cons.poz.poz_kar_umie_pos_plansza}) do
         for b,pos in pairs(po) do
             find = false
             tab = findHitsInSquare(pos)
-            --print(a.." : "..#tab)
-
             if #tab > 0 then
-                 --print(type(tab[1].hit_object.guid))
-            --z_decka("6ec5a2",1,pos,false)
                 local j=1
                 for j,hit in pairs(tab) do
                     if hit.hit_object.guid ~= nil then
@@ -745,12 +715,8 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                             local k=1
                             for k,kar in pairs(obj) do
                                 rot = getObjectFromGUID(hit.hit_object.guid).getRotation()
-
                                 if kar.guid == hit.hit_object.guid then
-                                     --local na = getObjectFromGUID(hit.hit_object.guid).getName()
                                     if type(kar.biom) == "table" and type(kar.przedmiot) == "table" then
-                                        --print(type(kar.biom))
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] and tab_przed_done[kar.przedmiot[1]] and tab_przed_done[kar.przedmiot[2]] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -764,8 +730,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif type(kar.biom) == "table" and type(kar.przedmiot) == "string" then
-                                        --print(type(kar.biom))
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] and tab_przed_done[kar.przedmiot] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -779,8 +743,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif type(kar.biom) == "string" and type(kar.przedmiot) == "table" then
-                                        --print(type(kar.biom))
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] and tab_przed_done[kar.przedmiot[1]] and tab_przed_done[kar.przedmiot[2]] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -794,8 +756,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif type(kar.biom) == "string" and type(kar.przedmiot) == "string" then
-                                        --print(type(kar.biom))
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] and tab_przed_done[kar.przedmiot] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -809,9 +769,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif type(kar.biom) == "string" and not kar.przedmiot then
-                                        --print("przedmioty startowe")
-                                        --print("Name: "..na)
-                                        --print("Name: "..na.." Biom type: "..type(kar.biom).." Przedmiot: "..type(kar.przedmiot))
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -825,8 +782,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif  type(kar.przedmiot) == "string" and not kar.biom then
-                                        --print(type(kar.biom))
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_przed_done[kar.przedmiot] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -840,8 +795,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif type(kar.biom) == "table" and not kar.przedmiot then
-                                        --print(type(kar.biom))
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_biom_wyspy[kar.biom[1]] and tab_biom_wyspy[kar.biom[2]] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -855,7 +808,6 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             find = true
                                         end
                                     elseif  type(kar.przedmiot) == "table" and not kar.biom then
-                                        --print("Name: "..na)
                                         if rot[3]<150 and not hasGreenMarker(tab) and tab_przed_done[kar.przedmiot[1]] and tab_przed_done[kar.przedmiot[2]] then
                                             local pos = getObjectFromGUID(hit.hit_object.guid).getPosition()
                                             pos = {pos[1],4,pos[3]+1}
@@ -868,20 +820,15 @@ function znajdzBiomKart()--odnajduje przedmioty do oznaczenia jako dostepne do w
                                             del_Marker(tab,offset)
                                             find = true
                                         end
-
                                     end
                                 end
-
                             end
                         end
                     end
                     if find then break end
                 end
-                --if find then break end
             end
-            --if find then break end
         end
-        --if find then break end
     end
     return tab_biom_kart
 end
