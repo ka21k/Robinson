@@ -629,11 +629,12 @@ function znajdzPrzedmioty()--znajduje wytworzone przedmioty
     return tab_przed
 end
 
-function zakrytyBiom(kafel)--sprawdza czy biom kafla wyspy jest zakryty czarnym markerem
+function zakrytyBiom(kafel)-- lub sprawdza czy biom kafla wyspy jest zakryty czarnym markerem
     for k,kaf in pairs(cons.guid.kafle) do
         if kaf.guid == kafel then
             local kaf_pos = getObjectFromGUID(kafel).getPosition()
             local pos = kaf.markery[5]
+            --local pos = kaf.biom.pos
             local pos2 = {pos[1]+kaf_pos[1],pos[2],pos[3]+kaf_pos[3]}
             local hit = findHitsInRadius(pos2,1.5)
             for _,blk in pairs(hit) do
